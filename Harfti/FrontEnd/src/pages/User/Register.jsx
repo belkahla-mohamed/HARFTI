@@ -77,7 +77,7 @@ const MobileSwitch = ({ text, subtext, onClick }) => (
 
 const AuthImage = ({ text, subtext, onClick }) => (
     <div className="hidden sm:flex flex-col bg-[#333333] shadow-2xl sm:h-[500px] sm:w-[200px] w-full justify-center items-center text-center rounded-r-lg">
-        <img src="./images/bgs/bg5.jpg" className="w-full h-full object-cover rounded-t-lg" alt={text} />
+        <img src="/test.jpg" className="w-full h-full object-cover rounded-t-lg" alt={text} />
         <div className="p-5 absolute top-15">
             <button className="text-white text-lg font-bold mb-3" onClick={onClick}>{text}</button>
             <h2 className="text-sm text-white">{subtext}</h2>

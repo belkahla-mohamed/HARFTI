@@ -28,7 +28,7 @@ export default function ImageSlider({ images }) {
         {images.map((i, index) => (
           <SwiperSlide key={index}>
             <img
-              src={`./images/slide/${i}`}
+              src={`./Images/bgs/${i}`}
               className="w-full h-[600px] "
             />
           </SwiperSlide>

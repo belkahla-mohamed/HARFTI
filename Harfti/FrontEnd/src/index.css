@@ -1,11 +1,5 @@
+
 @import "tailwindcss";
 
 
-.swiperrrr{
-    position: absolute;
-    width: auto;
-    height: 200px;
-    background-color: brown;
-    translate: 0 2.8em ;
-    z-index: 999;
-}
+

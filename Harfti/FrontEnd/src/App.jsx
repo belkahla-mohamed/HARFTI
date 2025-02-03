@@ -1,4 +1,5 @@
 import React from "react";
+
 import Navbar from "./pages/NavBar";
 import Home from "./pages/Home/Home";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -22,5 +23,6 @@ export default function App() {
             </BrowserRouter>
 
         </>
+
     )
 }

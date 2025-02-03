@@ -4,13 +4,13 @@ import React from "react";
 
 export default function Footer() {
     return (
-        <div className="flex w-full bg-[#333333] text-orange-400 flex-col mt-20 px-5 sm:px-28 2xl:px-38 pt-20 pb-4  h-full select-none">
+        <div className="flex w-full bg-[#333333] text-orange-400 flex-col mt-20 px-5 sm:px-28 2xl:px-38 pt-10 pb-4  h-full select-none">
 
-            <div className="w-full flex-wrap flex justify-start sm:justify-center gap-5 sm:gap-8 2xl:gap-20 items-center  ">
+            <div className="w-full flex-wrap flex justify-start sm:justify-center gap-5 sm:gap-8 2xl:gap-15 items-center  ">
 
 
                 <div className="w-full sm:w-[40%]">
-                    <h1 className=" text-center sm:text-start font-extrabold text-7xl pb-7">Logo</h1>
+                <img src="/logo/logo.png" className="w-44 h-[150px]"  />
                     <p className=" w-full sm:w-[80%] text-gray-300">At Jobe, we are committed to helping job seekers find their ideal careers while enabling employers to discover top talent. Our platform offers seamless job searches, career resources, and industry insights to support your professional journey.</p>
                 </div>
                 <div className="space-y-2">

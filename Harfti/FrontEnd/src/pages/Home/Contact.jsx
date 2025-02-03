@@ -65,9 +65,9 @@ export default function Contact() {
           </form>
         </div>
         <div className="w-0 sm:w-[40%] hidden sm:flex justify-center items-center rounded-4xl">
-          <img src="/images/bgs/bg1.jpg" alt="Background" className="w-full h-full relative"/>
-          <h1 className="absolute sm:text-xl 2xl:text-3xl text-blue-950 font-bold break-words">
-            Let's <br /><span className="text-black px-2"> share your Problems with us,<br /> for Your Comfort.</span>
+          <img src="/test.jpg" alt="Background" className="w-full h-full relative"/>
+          <h1 className="absolute sm:text-xl mb-10 2xl:text-xl text-orange-500 font-bold break-words">
+            Let's <br /><span className="text-white px-2"> share your Problems with us,<br /> for Your Comfort.</span>
           </h1>
         </div>
       </div>

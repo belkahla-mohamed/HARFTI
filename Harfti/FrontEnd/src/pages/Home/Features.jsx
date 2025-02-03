@@ -31,7 +31,7 @@ export default function Features() {
                     <div className="w-full flex  justify-center">
                         <Star className={styleIcon} />
                     </div>
-                    <h1>Reviews and Ratings</h1>
+                    <h1>Reviews </h1>
                 </div>
                 <div className={`${styleDive} hover:text-green-500`}>
                     <div className="w-full flex  justify-center">

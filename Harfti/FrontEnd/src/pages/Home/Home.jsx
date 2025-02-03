@@ -10,12 +10,21 @@ import Contact from "./Contact";
 
 export default function Home() {
     const images = [
-        'img (1).jpg',
-        'img (2).jpg',
-        'img (3).jpg',
-        'img (4).jpg',
-        'img (5).jpg',
-        'img (6).jpg'
+        'bg (1).jpg',
+        'bg (2).jpg',
+        'bg (3).jpg',
+        'bg (4).jpg',
+        'bg (5).jpg',
+    ]
+    const workers =[
+        'worker (1).jpg',
+        'worker (2).jpg',
+        'worker (3).jpg',
+        'worker (4).jpg',
+        'worker (5).jpg',
+        'worker (6).jpg',
+        
+        
     ]
     return (
 
@@ -23,7 +32,7 @@ export default function Home() {
             <Slide images={images} />
 
             <Features />
-            <Services images={images} />
+            <Services workers={workers}   />
             <Collaborations />
             <Contact />
             
