@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Search, UserPlus, House, HandPlatter, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX } from 'lucide-react';
+import { Search, UserPlus, House, HandPlatter, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound } from 'lucide-react';
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 
 export default function Navbar() {
 
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const user = useSelector(state => state.user.username) 
 
   const boxRef1 = useRef(null)
   const boxRef = useRef(null)
@@ -51,7 +53,8 @@ export default function Navbar() {
         <Link to='/'><img src="/logo/logo.png" className="w-32 h-[90px]"  /></Link>
         <div className="flex justify-between w-[25%] sm:w-[15%] 2xl:w-[8%]">
           <button><Search className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></button>
-          <button><Link to="/Register"><UserPlus className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button>
+
+          {user?<button> <Link to="/Profile"><CircleUserRound className="w-5 h-5 sm:w-8 sm:h-8 text-white"/></Link></button>:<button><Link to="/Register"><UserPlus className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button>}
           <button className="sm:hidden" onClick={() => { setOpen(!open) }}>
           <AnimatePresence mode="wait">
         {open ? (

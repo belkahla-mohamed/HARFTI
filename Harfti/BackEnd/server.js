@@ -35,6 +35,28 @@ app.post('/create', async (req, res) => {
     }
 })
 
+app.post('/login', async (req ,res)=>{
+    try{
+        const {username , password} = req.body;
+        if(!username || !password){
+            return res.json({status : 'error' , message : 'append all inputs !'})
+        }
+
+        const find = await usersCollection.findOne({username});
+        if(!find){
+            return res.json({status : "error" , message : "User don't existe"})
+        }
+        if(find.username === username && find.password === password){
+            return res.json({status:"success" , message:"user finded" , user : find})
+        }else{
+            return res.json({status:"error" , message : "password Incorect"})
+        }
+    }catch (err) {
+        
+        res.status(404).json({message : 'problem in login ', err})
+        }
+})
+
 
 
 app.listen(3001, (req, res) => {

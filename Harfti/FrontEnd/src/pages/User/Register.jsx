@@ -8,6 +8,9 @@ import {
 import { FaUserEdit } from "react-icons/fa";
 import { PiPassword } from "react-icons/pi";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 
 export default function Register() {
     const [active, setActive] = useState(false);
@@ -33,7 +36,13 @@ export default function Register() {
 
     const [Success, setSuccess] = useState();
     const [Error, setError] = useState();
+    
+    const [UserFind, setUserFind] = useState();
+
+    const dispatch = useDispatch()
+    
     // const [mess, setMess] = useState();
+    const navigate = useNavigate()
 
  function Add(e) {
         e.preventDefault();
@@ -41,6 +50,13 @@ export default function Register() {
         .then((res) => {
             if(res.data.status === "success"){
                 setSuccess(res.data.message)
+                setEmail('')
+                setFirstName('')
+                setLastName('')
+                setPassword('')
+                setUsername('')
+                setActive(true)
+
             }else{
                 setError(res.data.message)
             }
@@ -52,6 +68,24 @@ export default function Register() {
         
     }
 
+function Login(e) {
+    e.preventDefault();
+    axios.post('http://localhost:3001/login' , { username, password})
+    .then((res)=>{
+        if(res.data.status === "success"){
+            setSuccess(res.data.message)
+            setUserFind(res.data.user)
+            
+            
+        }else{
+            setError(res.data.message)
+        }
+    })
+    .catch((error)=>{
+        setError({message : "Error in login " , error})
+    })
+
+}
     useEffect(() => {
         if(Success){
             setError();
@@ -59,6 +93,22 @@ export default function Register() {
             setSuccess()
         }
     }, [Success, Error])
+
+    
+
+    useEffect(()=>{
+        if(UserFind){
+            dispatch({
+            type : "login",
+            payload: UserFind
+        })
+        navigate('/')
+        console.log(UserFind)
+        }
+        
+        
+        
+    },[UserFind])
 
     return (
         <div className="min-h-screen flex justify-center items-center">
@@ -85,11 +135,14 @@ export default function Register() {
             {/* Login Section */}
             <div ref={loginRef} className={`flex flex-col-reverse sm:flex-row justify-center items-center ${active ? "flex" : "hidden"}`}>
                 <div className="flex bg-amber-600 shadow-2xl sm:h-[500px] sm:w-[450px] w-full justify-center items-center rounded-l-lg p-5 flex-col">
-                    <form className="flex w-full max-w-[300px] justify-center items-center gap-8 flex-col">
+                    <form  onSubmit={Login} className="flex w-full max-w-[300px] justify-center items-center gap-8 flex-col">
                         <h1 className="font-extrabold text-[#333333] text-4xl">Login</h1>
-                        <InputField Icon={MdOutlineAlternateEmail} type="email" placeholder="Email" />
-                        <InputField Icon={PiPassword} type="password" placeholder="Password" />
-                        <button className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Login</button>
+                        
+                        <InputField Icon={FaUserEdit} type="text" placeholder="User Name or Email "  onChange={(e)=> setUsername(e.target.value)} />
+                        <InputField Icon={PiPassword} type="password" placeholder="Password" onChange={(e)=> setPassword(e.target.value) } />
+                        <button type="submit" className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Login</button>
+                        {Success && <p className="text-center font-bold text-green-600">{Success}</p>}
+                        {Error && <p className="text-center font-bold text-red-600">{Error}</p>}
                     </form>
                     <MobileSwitch text="Register" subtext="Don't have an account already?" onClick={() => setActive(false)} />
                 </div>
