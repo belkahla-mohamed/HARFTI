@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Search, UserPlus, House, HandPlatter, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound } from 'lucide-react';
+import { Search, UserPlus, House, HandPlatter, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake } from 'lucide-react';
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from 'react-router-dom';
@@ -92,7 +92,9 @@ export default function Navbar() {
           <Link to="/"><House className={`${location.pathname === "/" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`}/></Link>
           </li>
           <li>
-            <HandPlatter className={`text-[#333333] hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+            <Link to="/Services" >
+            <Handshake className={`text-[#333333] hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+            </Link>
           </li>
           <li>
             <Briefcase className={`text-[#333333] hover:text-blue-950 w-8 h-8 cursor-pointer`} />

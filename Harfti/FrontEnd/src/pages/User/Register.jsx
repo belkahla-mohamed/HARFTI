@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 
 
 export default function Register() {
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(true);
     const registerRef = useRef(null);
     const loginRef = useRef(null);
 
@@ -26,6 +26,8 @@ export default function Register() {
             tl.to(loginRef.current, { y: -20, opacity: 0 })
                 .fromTo(registerRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1 });
         }
+        setSuccess('')
+        setError('')
     }, [active]);
 
     const [firstName, setFirstName] = useState('');
@@ -33,6 +35,7 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const Image = "/Avatar/avatar (11).png"
 
     const [Success, setSuccess] = useState();
     const [Error, setError] = useState();
@@ -46,7 +49,7 @@ export default function Register() {
 
  function Add(e) {
         e.preventDefault();
-        axios.post('http://localhost:3001/create', {firstName, lastName, username, email, password})
+        axios.post('http://localhost:3001/create', {firstName, lastName, username, email, password , image:Image})
         .then((res) => {
             if(res.data.status === "success"){
                 setSuccess(res.data.message)
@@ -67,6 +70,10 @@ export default function Register() {
         
         
     }
+    useEffect(()=>{
+        setSuccess('')
+        setError('')
+    },[])
 
 function Login(e) {
     e.preventDefault();
