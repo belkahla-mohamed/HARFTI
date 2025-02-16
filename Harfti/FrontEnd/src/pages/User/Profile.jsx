@@ -49,7 +49,7 @@ export default function Profile() {
 
     const Update = () => {
         const id = user._id;  // Récupérer l'ID de l'utilisateur depuis Redux
-        axios.put('http://localhost:3001/update', { id, newfirstName, newlastName, newemail, newusername, newpassword, items })
+        axios.put('http://localhost:3001/user/update', { id, newfirstName, newlastName, newemail, newusername, newpassword, items })
             .then((res) => {
                 if (res.data.status === "success") {
                     setSuccess(res.data.message);
@@ -75,7 +75,7 @@ export default function Profile() {
     
 const fichier = async ()=>{
     try{
-        await axios.put("http://localhost:3001/upload",formData , {headers: { "Content-Type": "multipart/form-data" }})
+        await axios.put("http://localhost:3001/user/upload",formData , {headers: { "Content-Type": "multipart/form-data" }})
         .then((res)=>{
             setItems(res.data.filePath); // Stocker le chemin de l'image
             alert("Fichier uploadé avec succès !"); 
@@ -109,7 +109,7 @@ function saveAvatar(){
                             <div >
                                 {user.image.startsWith('/') ?
                                     <img src={items} onClick={saveAvatar} className="rounded-[50%] h-30 flex justify-center " /> 
-                                    :<img  src={`http://localhost:3001/uploads/${user.image}`}  className="rounded-[50%] h-30 flex justify-center "/>
+                                    :<img  src={`http://localhost:3001/user/uploads/${user.image}`}  className="rounded-[50%] h-30 flex justify-center "/>
                                   }
                                 
                                 

@@ -93,7 +93,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link to="/Services" >
-            <Handshake className={`text-[#333333] hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+            <Handshake className={`${location.pathname === "/Services" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />
             </Link>
           </li>
           <li>
@@ -114,7 +114,7 @@ export default function Navbar() {
               <Link to="/"><House className={`${location.pathname === "/" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
             </li>
             <li>
-              <HandPlatter className={`${location.pathname === "/Services" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+              <Link to="/Services"><Handshake className={`${location.pathname === "/Services" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
             </li>
             <li>
               <Briefcase className={`${location.pathname === "/Worker" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />

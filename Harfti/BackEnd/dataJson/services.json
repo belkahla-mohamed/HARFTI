@@ -1,0 +1,42 @@
+[
+    {
+        "icon" : "Package",
+        "title" : "Delivery Person"
+    },
+    {
+        "icon" : "Axe",
+        "title" : "Carpenter"
+    },
+    {
+        "icon" : "Anvil",
+        "title" : "Blacksmith"
+    },
+    {
+        "icon" : "Wrench",
+        "title" : "Mechanic"
+    },
+    {
+        "icon" : "Gem",
+        "title" : "Goldsmith"
+    },
+    {
+        "icon" : "BrickWall",
+        "title" : "Builder"
+    },
+    {
+        "icon" : "ScissorsLineDashed",
+        "title" : "Tailor"
+    },
+    {
+        "icon" : "Palette",
+        "title" : "Craftsperson"
+    },
+    {
+        "icon" : "Briefcase",
+        "title" : "Leatherworker"
+    },
+    {
+        "icon" : "Flame",
+        "title" : "Welder"
+    }
+]

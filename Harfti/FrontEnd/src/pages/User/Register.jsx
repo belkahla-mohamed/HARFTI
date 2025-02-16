@@ -49,7 +49,7 @@ export default function Register() {
 
  function Add(e) {
         e.preventDefault();
-        axios.post('http://localhost:3001/create', {firstName, lastName, username, email, password , image:Image})
+        axios.post('http://localhost:3001/auth/create', {firstName, lastName, username, email, password , image:Image})
         .then((res) => {
             if(res.data.status === "success"){
                 setSuccess(res.data.message)
@@ -77,7 +77,7 @@ export default function Register() {
 
 function Login(e) {
     e.preventDefault();
-    axios.post('http://localhost:3001/login' , { username, password})
+    axios.post('http://localhost:3001/auth/login' , { username, password})
     .then((res)=>{
         if(res.data.status === "success"){
             setSuccess(res.data.message)

@@ -1,0 +1,165 @@
+[
+    {
+        "fullname" : "mohamed belkahla",
+        "age" : 20,
+        "service" : "Delivery Person",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "ana.jpg"
+    },
+    {
+        "fullname" : "mouad lamsila",
+        "age" : 20,
+        "service" : "Delivery Person",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "MOUAD.png"
+    },
+    {
+        "fullname" : "rachidy",
+        "age" : 20,
+        "service" : "Delivery Person",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "rachidy.png"
+    },
+    {
+        "fullname" : "jake",
+        "age" : 20,
+        "service" : "Delivery Person",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "TRAFEH.png"
+    },
+
+    {
+        "fullname" : "mohamed belkahla",
+        "age" : 20,
+        "service" : "Carpenter",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "ana.jpg"
+    },
+    {
+        "fullname" : "mouad lamsila",
+        "age" : 20,
+        "service" : "Carpenter",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "MOUAD.png"
+    },
+    {
+        "fullname" : "rachidy",
+        "age" : 20,
+        "service" : "Carpenter",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "rachidy.png"
+    },
+    {
+        "fullname" : "jake",
+        "age" : 20,
+        "service" : "Carpenter",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "TRAFEH.png"
+    },
+
+    {
+        "fullname" : "mohamed belkahla",
+        "age" : 20,
+        "service" : "Blacksmith",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "ana.jpg"
+    },
+    {
+        "fullname" : "mouad lamsila",
+        "age" : 20,
+        "service" : "Blacksmith",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "MOUAD.png"
+    },
+    {
+        "fullname" : "rachidy",
+        "age" : 20,
+        "service" : "Blacksmith",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "rachidy.png"
+    },
+    {
+        "fullname" : "jake",
+        "age" : 20,
+        "service" : "Blacksmith",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "TRAFEH.png"
+    },
+
+    {
+        "fullname" : "mohamed belkahla",
+        "age" : 20,
+        "service" : "Mechanic",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "ana.jpg"
+    },
+    {
+        "fullname" : "mouad lamsila",
+        "age" : 20,
+        "service" : "Mechanic",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "MOUAD.png"
+    },
+    {
+        "fullname" : "rachidy",
+        "age" : 20,
+        "service" : "Mechanic",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "rachidy.png"
+    },
+    {
+        "fullname" : "jake",
+        "age" : 20,
+        "service" : "Mechanic",
+        "contact" : {
+            "tel" : 212645454545,
+            "email" : "mohamed@gmail.com"
+        },
+        "image" : "TRAFEH.png"
+    }
+]
