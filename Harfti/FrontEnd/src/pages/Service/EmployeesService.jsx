@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { Mail, Phone, PhoneCall } from 'lucide-react';
 import gsap from "gsap";
@@ -22,7 +22,7 @@ export default function EmployeesService() {
                 if (res.data.status === 'success') {
                     setEmployees(res.data.employees);
                     setMessage(res.data.message)
-                }else{
+                } else {
                     setMessage(res.data.message)
                 }
             }).catch((err) => {
@@ -48,26 +48,28 @@ export default function EmployeesService() {
             <div className="w-full  grid 2xl:grid-cols-4 sm:grid-cols-3 grid-cols-1  gap-4 p-4">
 
                 {employees && employees.map((employee, index) =>
-                    <div ref={(e) => emplRefs.current[index] = e} className="bg-gray-300 h-auto w-full space-y-2 rounded-xl pb-4 shadow">
+                    <div ref={(e) => emplRefs.current[index] = e} key={index} className="bg-gray-300 h-auto w-full space-y-2 rounded-xl pb-4 shadow">
                         <img src={`http://localhost:3001/uploads/${employee.image}`} className="w-full h-[200px] rounded-t-xl" />
                         <h1 className="text-center text-xl font-extrabold">{employee.fullname}</h1>
                         <p className="text-center">{employee.age} years old</p>
                         <div className="flex justify-center gap-x-3 items-center">
-                           <Phone />
-                           <p> {employee.contact.tel}</p> 
+                            <Phone />
+                            <p> {employee.contact.tel}</p>
                         </div>
                         <div className="flex justify-center gap-x-3 items-center">
-                           <Mail/>
-                           <p> {employee.contact.email}</p> 
+                            <Mail />
+                            <p> {employee.contact.email}</p>
                         </div>
                         <div className="w-full flex justify-center">
-                            <button className="flex bg-orange-500 p-2 rounded font-bold text-white gap-2 cursor-pointer" ><PhoneCall/>Contact Now</button>
+                            <Link to='/location'>
+                                <button className="flex bg-orange-500 p-2 rounded font-bold text-white gap-2 cursor-pointer" ><PhoneCall />Contact Now</button>
+                            </Link>
                         </div>
-                        
-                    </div>
-                ) }
 
-                
+                    </div>
+                )}
+
+
 
 
 

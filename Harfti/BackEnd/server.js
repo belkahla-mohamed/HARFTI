@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
+
 const serviceRoutes = require('./routes/serviceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
 
@@ -17,7 +17,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Harfti')
 
 // Route Middleware
 app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+
 app.use('/', serviceRoutes);
 app.use('/services', employeeRoutes);
 

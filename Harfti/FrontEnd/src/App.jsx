@@ -8,6 +8,7 @@ import Register from "./pages/User/Register";
 import Profile from "./pages/User/Profile";
 import Services from "./pages/Service/Services";
 import EmployeesService from "./pages/Service/EmployeesService";
+import Location from "./pages/location/Location";
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
                         <Route path="/Profile" element={<Profile />} />
                         <Route path="/Register" element={<Register />} />
                         <Route path="/Services" element={<Services />} />
+                        <Route path="/location" element={<Location />} />
                         <Route path="/Services/:service" element={<EmployeesService/>} />
                     </Routes>
                 </div>
