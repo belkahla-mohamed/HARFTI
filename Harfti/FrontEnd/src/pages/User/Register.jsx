@@ -39,83 +39,71 @@ export default function Register() {
 
     const [Success, setSuccess] = useState();
     const [Error, setError] = useState();
-    
-    const [UserFind, setUserFind] = useState();
 
-    const dispatch = useDispatch()
-    
+
+
+
+
     // const [mess, setMess] = useState();
     const navigate = useNavigate()
 
- function Add(e) {
+    function Add(e) {
         e.preventDefault();
-        axios.post('http://localhost:3001/auth/create', {firstName, lastName, username, email, password , image:Image})
-        .then((res) => {
-            if(res.data.status === "success"){
-                setSuccess(res.data.message)
-                setEmail('')
-                setFirstName('')
-                setLastName('')
-                setPassword('')
-                setUsername('')
-                setActive(true)
+        axios.post('http://localhost:3001/auth/create', { firstName, lastName, username, email, password, image: Image })
+            .then((res) => {
+                if (res.data.status === "success") {
+                    setSuccess(res.data.message)
+                    setEmail('')
+                    setFirstName('')
+                    setLastName('')
+                    setPassword('')
+                    setUsername('')
+                    setActive(true)
 
-            }else{
-                setError(res.data.message)
-            }
-        })
-        .catch((err) => 
-            console.log(err)
-        )
-        
-        
+                } else {
+                    setError(res.data.message)
+                }
+            })
+            .catch((err) =>
+                console.log(err)
+            )
+
+
     }
-    useEffect(()=>{
+    useEffect(() => {
         setSuccess('')
         setError('')
-    },[])
+    }, [])
 
-function Login(e) {
-    e.preventDefault();
-    axios.post('http://localhost:3001/auth/login' , { username, password})
-    .then((res)=>{
-        if(res.data.status === "success"){
-            setSuccess(res.data.message)
-            setUserFind(res.data.user)
-            
-            
-        }else{
-            setError(res.data.message)
-        }
-    })
-    .catch((error)=>{
-        setError({message : "Error in login " , error})
-    })
+    function Login(e) {
+        e.preventDefault();
+        axios.post('http://localhost:3001/auth/login', { username, password })
+            .then((res) => {
+                if (res.data.status === "success") {
+                    setSuccess(res.data.message);
 
-}
+                    // ✅ Store user data in sessionStorage
+                    sessionStorage.setItem("userID", JSON.stringify(res.data.user._id));
+
+                    navigate('/');
+                } else {
+                    setError(res.data.message);
+                }
+            })
+            .catch((error) => {
+                setError({ message: "Error in login", error });
+            });
+    }
     useEffect(() => {
-        if(Success){
+        if (Success) {
             setError();
-        }else if(Error){
+        } else if (Error) {
             setSuccess()
         }
     }, [Success, Error])
 
-    
 
-    useEffect(()=>{
-        if(UserFind){
-            dispatch({
-            type : "login",
-            payload: UserFind
-        })
-        navigate('/')
-        console.log(UserFind)
-        }
-        
-        
-        
-    },[UserFind])
+
 
     return (
         <div className="min-h-screen flex justify-center items-center">
@@ -124,15 +112,15 @@ function Login(e) {
                 <div className="flex bg-amber-600 shadow-2xl sm:h-[500px] sm:w-[450px] w-full justify-center items-center rounded-l-lg p-5 flex-col">
                     <form onSubmit={Add} className="flex w-full max-w-[300px] justify-center items-center gap-4 flex-col">
                         <h1 className="font-extrabold text-[#333333] text-4xl">Register</h1>
-                        <InputField Icon={MdOutlineDriveFileRenameOutline} type="text"  onChange={(e) => setFirstName(e.target.value)} placeholder="First Name" />
-                        <InputField Icon={MdDriveFileRenameOutline} type="text"  onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" />
-                        <InputField Icon={FaUserEdit} type="text"  onChange={(e) => setUsername(e.target.value)} placeholder="User Name" />
-                        <InputField Icon={MdOutlineAlternateEmail} type="email"  onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                        <InputField Icon={MdOutlineDriveFileRenameOutline} type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="First Name" />
+                        <InputField Icon={MdDriveFileRenameOutline} type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" />
+                        <InputField Icon={FaUserEdit} type="text" onChange={(e) => setUsername(e.target.value)} placeholder="User Name" />
+                        <InputField Icon={MdOutlineAlternateEmail} type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                         <InputField Icon={PiPassword} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                         <button type="submit" className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Register</button>
                         {Success && <p className="text-center font-bold text-green-600">{Success}</p>}
                         {Error && <p className="text-center font-bold text-red-600">{Error}</p>}
-                       
+
                     </form>
                     <MobileSwitch text="Login" subtext="Do you already have an account?" onClick={() => setActive(true)} />
                 </div>
@@ -142,11 +130,11 @@ function Login(e) {
             {/* Login Section */}
             <div ref={loginRef} className={`flex flex-col-reverse sm:flex-row justify-center items-center ${active ? "flex" : "hidden"}`}>
                 <div className="flex bg-amber-600 shadow-2xl sm:h-[500px] sm:w-[450px] w-full justify-center items-center rounded-l-lg p-5 flex-col">
-                    <form  onSubmit={Login} className="flex w-full max-w-[300px] justify-center items-center gap-8 flex-col">
+                    <form onSubmit={Login} className="flex w-full max-w-[300px] justify-center items-center gap-8 flex-col">
                         <h1 className="font-extrabold text-[#333333] text-4xl">Login</h1>
-                        
-                        <InputField Icon={FaUserEdit} type="text" placeholder="User Name or Email "  onChange={(e)=> setUsername(e.target.value)} />
-                        <InputField Icon={PiPassword} type="password" placeholder="Password" onChange={(e)=> setPassword(e.target.value) } />
+
+                        <InputField Icon={FaUserEdit} type="text" placeholder="User Name or Email " onChange={(e) => setUsername(e.target.value)} />
+                        <InputField Icon={PiPassword} type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                         <button type="submit" className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Login</button>
                         {Success && <p className="text-center font-bold text-green-600">{Success}</p>}
                         {Error && <p className="text-center font-bold text-red-600">{Error}</p>}

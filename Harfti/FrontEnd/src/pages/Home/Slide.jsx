@@ -23,7 +23,7 @@ export default function ImageSlider({ images }) {
           disableOnInteraction: false,
         }}
         modules={[Autoplay]}
-        className="mySwiper h-[600px] mt-11 z-30 shadow-lg opacity-0 relative p-6 border-4 border-transparent rounded-lg"
+        className="mySwiper h-[600px] mt-11  shadow-lg opacity-0 relative p-6 border-4 border-transparent rounded-lg"
       >
         {images.map((i, index) => (
           <SwiperSlide key={index}>

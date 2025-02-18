@@ -10,7 +10,7 @@ export default function Navbar() {
 
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const user = useSelector(state => state.user.username) 
+  const userID = JSON.parse(sessionStorage.getItem('userID'));
 
   const boxRef1 = useRef(null)
   const boxRef = useRef(null)
@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="flex justify-between w-[25%] sm:w-[15%] 2xl:w-[8%]">
           <button><Search className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></button>
 
-          {user?<button> <Link to="/Profile"><CircleUserRound className="w-5 h-5 sm:w-8 sm:h-8 text-white"/></Link></button>:<button><Link to="/Register"><UserPlus className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button>}
+          {userID?<button> <Link to="/Profile"><CircleUserRound className="w-5 h-5 sm:w-8 sm:h-8 text-white"/></Link></button>:<button><Link to="/Register"><UserPlus className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button>}
           <button className="sm:hidden" onClick={() => { setOpen(!open) }}>
           <AnimatePresence mode="wait">
         {open ? (
