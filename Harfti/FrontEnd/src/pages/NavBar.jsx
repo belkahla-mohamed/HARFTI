@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Search, UserPlus, House, HandPlatter, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { Search, UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake } from 'lucide-react';
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from "react-redux";
+
 
 
 export default function Navbar() {

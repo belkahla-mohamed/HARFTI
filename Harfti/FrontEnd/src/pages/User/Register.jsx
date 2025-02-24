@@ -35,7 +35,7 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const Image = "/Avatar/avatar (11).png"
+    const Image = "default.png"
 
     const [Success, setSuccess] = useState();
     const [Error, setError] = useState();

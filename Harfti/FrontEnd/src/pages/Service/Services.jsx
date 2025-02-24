@@ -40,7 +40,7 @@ export default function Services() {
             <h1 className="text-start sm:text-6xl text-5xl font-extrabold text-orange-500 cursor-default">
                 Our Services
             </h1>
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 gap-12 2xl:gap-32 p-10">
+            <div className="w-full grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 gap-12 2xl:gap-10 p-10">
                 {services?.map((service, index) => (
                     <Link key={index} to={`/Services/${service.title}`}>
                         <div
