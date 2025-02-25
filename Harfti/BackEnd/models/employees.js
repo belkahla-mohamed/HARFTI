@@ -15,5 +15,4 @@ const employeesSchema = new mongoose.Schema({
 
 const employeesCollection = new mongoose.model("employees", employeesSchema);
 
-
 module.exports = employeesCollection;

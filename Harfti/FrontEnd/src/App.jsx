@@ -9,6 +9,8 @@ import Profile from "./pages/User/Profile";
 import Services from "./pages/Service/Services";
 import EmployeesService from "./pages/Service/EmployeesService";
 import Location from "./pages/location/Location";
+import Worker from "./pages/job/Worker";
+;
 
 export default function App() {
 
@@ -22,16 +24,17 @@ export default function App() {
                 <div className=' sm:mx-[10em] 2xl:mx-[18em]'>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/Worker" />
+                        
                         <Route path="/Profile" element={<Profile />} />
                         <Route path="/Register" element={<Register />} />
                         <Route path="/Services" element={<Services />} />
                         <Route path="/location" element={<Location />} />
+                        <Route path="/Worker" element={<Worker/>} />
                         <Route path="/Services/:service" element={<EmployeesService/>} />
                     </Routes>
                 </div>
                 <Footer />
-
+               
             </BrowserRouter>
 
         </>

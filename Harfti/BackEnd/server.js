@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
 const userRoutes = require('./routes/userRoutes')
+const workerRoutes = require('./routes/workerRoutes');
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,8 @@ app.use('/auth', authRoutes);
 app.use('/', serviceRoutes);
 app.use('/services', employeeRoutes);
 app.use('/user',userRoutes);
+
+app.use('/worker',workerRoutes );
 
 // Serve Static Uploads
 app.use('/uploads', express.static('uploads'));
