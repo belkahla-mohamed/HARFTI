@@ -3,17 +3,20 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Phone } from "lucide-react";
+import Combobox from "./select";
 
 export default function Worker() {
     const [workers, setWorkers] = useState([]);
     const [message, setMessage] = useState("");
-
-
+    const [servicesTitle , setServicesTitle] = useState("")
+    const [newWorker , setNewWorker] = useState();
+    console.log(servicesTitle)
     useEffect(() => {
         axios.get("http://127.0.0.1:3001/worker/workers")
             .then((res) => {
                 if (res.data.status === "success") {
                     setWorkers(res.data.workers);
+                    setNewWorker(res.data.workers);
                 } else {
                     setMessage(res.data.message);
                 }
@@ -23,14 +26,32 @@ export default function Worker() {
                 setMessage("Erreur lors du chargement des travailleurs.");
             });
 
+        
     }, []);
+    useEffect(()=>{
+        
+        if(servicesTitle ===''){
+            setNewWorker(workers);
+        
+        }else{
+            
+            setNewWorker(
+                workers.filter((worker)=>
+                    worker.service === servicesTitle
+                ))
+        }
+        
+    },[servicesTitle])
 
     return (
-        <div className="flex flex-col justify-center sm:px-0 px-9 py-10 w-full h-auto rounded-b-sm ">
+        <div className="flex flex-col  justify-center sm:px-0 px-9 py-10 w-full min-h-screen rounded-b-sm ">
             <div className="w-full text-center text-orange-500 text-3xl font-bold pb-9">
             <h1 className="text-center sm:text-6xl text-2xl font-extrabold text-orange-500 cursor-default"> The workers</h1>
             </div>
-
+            <div className="w-full mb-9 flex justify-center">
+                <Combobox setServicesTitle ={setServicesTitle} />
+            </div>
+            
             <motion.div
                 className="w-full grid grid-cols-1  sm:grid-cols-4 gap-5 justify-center "
                 initial={{ opacity: 0 }}
@@ -38,8 +59,8 @@ export default function Worker() {
                 transition={{ duration: 0.9 }}
             >
                 {message && <p className="text-red-500">{message}</p>}
-                {workers.length > 0 ? (
-                    workers.map((worker) => (
+                {newWorker ? (
+                    newWorker.map((worker) => (
                         <motion.div
                             key={worker.id}
                             className="flex-col p-3   rounded-xl shadow-xl bg-gray-300 space-y-2 flex items-center    w-full    hover:shadow-2xs duration-200 ease-in flex-wrap"
