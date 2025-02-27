@@ -7,11 +7,12 @@ import {
 } from "@radix-ui/react-popover";
 import axios from "axios";
 
-const Combobox = ({setServicesTitle}) => {
+const Combobox = ({ setServicesTitle }) => {
   const [open, setOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState('');
+  const [selectedService, setSelectedService] = useState({title : "All Workers"});
   const [search, setSearch] = useState("");
   const [services, setServices] = useState([]);
+  const serviceDefault = {title : "All Workers"};
 
   // Fetch services from API
   useEffect(() => {
@@ -30,9 +31,9 @@ const Combobox = ({setServicesTitle}) => {
     service.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     setServicesTitle(selectedService.title);
-  },[selectedService])
+  }, [selectedService])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -60,13 +61,24 @@ const Combobox = ({setServicesTitle}) => {
 
         {/* Services List */}
         <div className="flex flex-col space-y-2">
+          <button
+            className={`flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-100 ${selectedService.title === "All Workers" ? "bg-gray-200" : ""
+              }`}
+            onClick={() => {
+              setSelectedService(serviceDefault);
+              setOpen(false);
+              setSearch("");
+            }}
+          >
+            All Workers {selectedService.title === 'All Workers' && <Check className="w-4 h-4" />}
+          </button>
           {filteredServices.length > 0 ? (
+
             filteredServices.map((service) => (
               <button
                 key={service._id}
-                className={`flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-100 ${
-                  selectedService?._id === service._id ? "bg-gray-200" : ""
-                }`}
+                className={`flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-100 ${selectedService?._id === service._id ? "bg-gray-200" : ""
+                  }`}
                 onClick={() => {
                   setSelectedService(service);
                   setOpen(false);

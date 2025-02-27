@@ -8,7 +8,7 @@ import Combobox from "./select";
 export default function Worker() {
     const [workers, setWorkers] = useState([]);
     const [message, setMessage] = useState("");
-    const [servicesTitle , setServicesTitle] = useState("")
+    const [servicesTitle , setServicesTitle] = useState("All Workers")
     const [newWorker , setNewWorker] = useState();
     console.log(servicesTitle)
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function Worker() {
     }, []);
     useEffect(()=>{
         
-        if(servicesTitle ===''){
+        if(servicesTitle ==='' || servicesTitle === 'All Workers'){
             setNewWorker(workers);
         
         }else{
