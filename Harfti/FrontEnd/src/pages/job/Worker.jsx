@@ -10,7 +10,8 @@ export default function Worker() {
     const [message, setMessage] = useState("");
     const [servicesTitle, setServicesTitle] = useState("All Workers")
     const [newWorker, setNewWorker] = useState([]);
-    console.log(servicesTitle)
+    
+
     useEffect(() => {
         axios.get("http://127.0.0.1:3001/worker/workers")
             .then((res) => {
