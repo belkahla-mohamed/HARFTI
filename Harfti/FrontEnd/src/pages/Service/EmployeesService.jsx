@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-import { Mail, Phone, PhoneCall } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Phone } from 'lucide-react';
 import gsap from "gsap";
 
 export default function EmployeesService() {
-    const [employees, setEmployees] = useState();
+    const [employees, setEmployees] = useState([]);
     const [message, setMessage] = useState();
     const params = useParams()
     const { service } = params;
@@ -43,38 +43,62 @@ export default function EmployeesService() {
     }, [employees]);
 
     return (
-        <div className="min-h-screen w-full flex flex-col gap-10 mt-20 items-center select-none">
-            <h1 className="text-start sm:text-6xl text-2xl font-extrabold text-orange-500 cursor-default">Employees in {service}</h1>
-            <div className="w-full  grid 2xl:grid-cols-4 sm:grid-cols-3 grid-cols-1  gap-4 p-4">
+        <div className="min-h-screen px-9 sm:px-0 w-full flex flex-col gap-10 mt-20 items-center select-none">
+            <h1 className="sm:text-start text-center sm:text-6xl text-2xl  font-extrabold text-orange-500 cursor-default">Workers in {service}</h1>
 
-                {employees && employees.map((employee, index) =>
-                    <div ref={(e) => emplRefs.current[index] = e} key={index} className="bg-gray-300 h-auto w-full space-y-2 rounded-xl pb-4 shadow">
-                        <img src={`http://localhost:3001/uploads/${employee.image}`} className="w-full h-[200px] rounded-t-xl" />
-                        <h1 className="text-center text-xl font-extrabold">{employee.fullname}</h1>
-                        <p className="text-center">{employee.age} years old</p>
-                        <div className="flex justify-center gap-x-3 items-center">
-                            <Phone />
-                            <p> {employee.contact.tel}</p>
-                        </div>
-                        <div className="flex justify-center gap-x-3 items-center">
-                            <Mail />
-                            <p> {employee.contact.email}</p>
+
+
+
+
+            {employees.length ? (<motion.div
+                className="w-full grid grid-cols-1  sm:grid-cols-4 gap-5 justify-center "
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9 }}
+            >
+                {employees.map((employee) => (
+                    <motion.div
+                        key={employee.id}
+                        className="flex-col p-3   rounded-xl shadow-xl bg-gray-300 space-y-2 flex items-center    w-full    hover:shadow-2xs duration-200 ease-in flex-wrap"
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <img
+                            className="w-32 h-32"
+                            src={`http://localhost:3001/uploads/${employee.image}`}
+                            alt={employee.image}
+                        />
+                        <div className="  text-center">
+                            <p className="text-xl font-bold "> {employee.fullname}</p>
+                            <p className="text-lg text-[#333333]"> {employee.service}</p>
+                            <p className="text-sm text-[#333333]">{employee.contact?.tel || "N/A"}</p>
+                            <p className="text-sm text-[#333333]">{employee.age} years old</p>
                         </div>
                         <div className="w-full flex justify-center">
-                            <Link to='/location'>
-                                <button className="flex bg-orange-500 p-2 rounded font-bold text-white gap-2 cursor-pointer" ><PhoneCall />Contact Now</button>
+                            <Link to="/location">
+                                <button
+                                    className="flex bg-orange-500 hover:bg-orange-600 ease-in-out duration-100 p-2 rounded font-bold text-white gap-2 cursor-pointer"
+                                >
+                                    <Phone /> Contact Now
+                                </button>
                             </Link>
+
                         </div>
+                    </motion.div>
+                ))}</motion.div>
+            ) : (
+                <p className="sm:text-2xl text-sm text-gray-400 text-center font-bold">Aucun {service}s trouvé.</p>
+            )}
 
-                    </div>
-                )}
 
 
 
 
 
-            </div>
         </div>
+
 
     )
 }

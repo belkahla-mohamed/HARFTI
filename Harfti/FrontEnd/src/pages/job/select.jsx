@@ -9,10 +9,10 @@ import axios from "axios";
 
 const Combobox = ({ setServicesTitle }) => {
   const [open, setOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState({title : "All Workers"});
+  const [selectedService, setSelectedService] = useState({ title: "All Workers" });
   const [search, setSearch] = useState("");
   const [services, setServices] = useState([]);
-  const serviceDefault = {title : "All Workers"};
+  const serviceDefault = { title: "All Workers" };
 
   // Fetch services from API
   useEffect(() => {
@@ -40,7 +40,7 @@ const Combobox = ({ setServicesTitle }) => {
       <PopoverTrigger asChild>
         <div
           onClick={() => setOpen(!open)}
-          className="w-[50%]  flex justify-between items-center px-4 py-2 border border-gray-300 rounded cursor-pointer bg-white shadow-sm"
+          className="sm:w-[50%] w-full  flex justify-between items-center px-4 py-2 border border-gray-300 rounded cursor-pointer bg-white shadow-sm"
         >
           <span >{selectedService ? selectedService.title : "Select service..."}</span>
           <ChevronsUpDown className="opacity-50" />
