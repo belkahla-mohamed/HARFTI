@@ -15,11 +15,17 @@ export default function Navbar() {
   const boxRef1 = useRef(null)
   const boxRef = useRef(null)
   const boxRefs = useRef([]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
+
   useEffect(() => {
 
     gsap.to(boxRef1.current, { x: 0, duration: 1, opacity: 1 });
     gsap.to(boxRef.current, { y: 0, duration: 1, opacity: 1 });
   }, []);
+
   useEffect(() => {
 
     gsap.from(boxRefs.current, {
@@ -50,35 +56,35 @@ export default function Navbar() {
       </div>
 
       <div ref={boxRef1} className="w-full h-full -translate-x-32 bg-[#333333] px-4 sm:px-[7em] text-[25px] sm:text-[40px]  flex justify-between opacity-0 items-center shadow-[0_5px_10px_rgba(0,0,0,0.3)]">
-        <Link to='/'><img src="/logo/logo.png" className="w-32 h-[90px]"  /></Link>
+        <Link to='/'><img src="/logo/logo.png" className="w-32 h-[90px]" /></Link>
         <div className="flex justify-between w-[25%] sm:w-[15%] 2xl:w-[8%]">
           <button><Search className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></button>
 
-          {userID?<button> <Link to="/Profile"><CircleUserRound className="w-5 h-5 sm:w-8 sm:h-8 text-white"/></Link></button>:<button><Link to="/Register"><UserPlus className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button>}
+          {userID ? <button> <Link to="/Profile"><CircleUserRound className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button> : <button><Link to="/Register"><UserPlus className="w-5 h-5 sm:w-8 sm:h-8 text-white" /></Link></button>}
           <button className="sm:hidden" onClick={() => { setOpen(!open) }}>
-          <AnimatePresence mode="wait">
-        {open ? (
-          <motion.div
-            key="circleX"
-            initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
-          >
-            <CircleX className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="menu"
-            initial={{ opacity: 0, rotate: 90, scale: 0.8 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: -90, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Menu className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {open ? (
+                <motion.div
+                  key="circleX"
+                  initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                  exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <CircleX className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                  exit={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Menu className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
@@ -89,15 +95,19 @@ export default function Navbar() {
       >
         <ul className="h-full w-full flex flex-col justify-between space-y-8">
           <li>
-          <Link to="/"><House className={`${location.pathname === "/" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`}/></Link>
-          </li>
-          <li>
-            <Link to="/Services" >
-            <Handshake className={`${location.pathname === "/Services" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+            <Link to="/">
+              <House className={`${location.pathname === "/" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />
             </Link>
           </li>
           <li>
-          <Link to="/Worker" ><Briefcase className={`${location.pathname === "/Worker" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`}  /></Link>
+            <Link to="/Services" >
+              <Handshake className={`${location.pathname === "/Services" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+            </Link>
+          </li>
+          <li>
+            <Link to="/Worker" >
+              <Briefcase className={`${location.pathname === "/Worker" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} />
+            </Link>
           </li>
         </ul>
       </div>
@@ -111,13 +121,13 @@ export default function Navbar() {
 
           <ul className="h-full w-full flex flex-col justify-between space-y-8">
             <li>
-              <Link to="/"><House className={`${location.pathname === "/" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
+              <Link to="/"><House className={`${location.pathname === "/" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
             </li>
             <li>
-              <Link to="/Services"><Handshake className={`${location.pathname === "/Services" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
+              <Link to="/Services"><Handshake className={`${location.pathname === "/Services" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
             </li>
             <li>
-              <Link to="/Worker" ><Briefcase className={`${location.pathname === "/Worker" ? "text-white" :'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
+              <Link to="/Worker" ><Briefcase className={`${location.pathname === "/Worker" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
             </li>
           </ul>
 

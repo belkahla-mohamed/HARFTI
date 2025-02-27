@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
 const userRoutes = require('./routes/userRoutes')
+const payment = require('./routes/payment');
 const workerRoutes = require('./routes/workerRoutes');
 
 const app = express();
@@ -19,11 +20,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/Harfti')
 
 // Route Middleware
 app.use('/auth', authRoutes);
-
 app.use('/', serviceRoutes);
+app.use('/payment', payment);
 app.use('/services', employeeRoutes);
 app.use('/user',userRoutes);
-
 app.use('/worker',workerRoutes );
 
 // Serve Static Uploads
