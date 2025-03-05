@@ -113,13 +113,13 @@ export default function Navbar() {
       </div>
       <AnimatePresence>
         {open && <motion.div
-          initial={{ translateX: "-100%" }}
-          animate={{ translateX: "0" }}
-          exit={{ translateX: "-100%" }}
+          initial={{ translateY: "100%" }}
+          animate={{ translateY: "0" }}
+          exit={{ translateY: "100%" }}
           transition={{ duration: 0.6 }}
-          className={`${open ? "flex px-5" : "hidden"} sm:flex items-center h-full fixed left-0 z-50 top-0 bg-orange-400 sm:px-8 py-[10em] shadow-[5px_0_10px_rgba(0,0,0,0.3)]`}>
+          className={`${open ? " px-5 fixed" : "hidden"}  items-center left-0 bottom-0 right-0 z-50  bg-orange-400 sm:px-8 py-[1em] shadow-[5px_0_10px_rgba(0,0,0,0.3)]`}>
 
-          <ul className="h-full w-full flex flex-col justify-between space-y-8">
+          <ul className=" w-full flex justify-between">
             <li>
               <Link to="/"><House className={`${location.pathname === "/" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
             </li>

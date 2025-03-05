@@ -31,6 +31,11 @@ const MyMap = () => {
     setLocation(newLocation); // Update location in state
   };
 
+  useEffect(() => {
+    localStorage.setItem('location', JSON.stringify(location));
+  }, [location])
+
+
   // Handle mouse hover effect for the button
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const usersCollection = require("../models/User");
-const bcrybt = require("bcrypt");
+const {usersCollection} = require("../models/User");
+
 
 router.post("/Profile", async (req, res) => {
   const { userID } = req.body;

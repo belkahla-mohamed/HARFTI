@@ -23,7 +23,20 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+const reservationSchema = new mongoose.Schema({
+    location : {
+        lat : Number,
+        lng : Number
+    },
+    image : String,
+    contact : String,
+    description : String,
+    notification: { type: String, default: null },
+    userId : { type: mongoose.Schema.Types.ObjectId, ref: "users" }
+})
+
 
 const usersCollection = mongoose.model('users', userSchema);
+const reservationsCollection = mongoose.model('reservations', reservationSchema);
 
-module.exports = usersCollection
+module.exports = {usersCollection, reservationsCollection};

@@ -2,12 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
-
 const serviceRoutes = require('./routes/serviceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
-const userRoutes = require('./routes/userRoutes')
-const payment = require('./routes/payment');
+const userRoutes = require('./routes/userRoutes');
+const paymentRoutes = require('./routes/payment');
 const workerRoutes = require('./routes/workerRoutes');
+const reservationRoutes = require('./routes/reservationRoutes');
 
 const app = express();
 app.use(express.json());
@@ -21,13 +21,15 @@ mongoose.connect('mongodb://127.0.0.1:27017/Harfti')
 // Route Middleware
 app.use('/auth', authRoutes);
 app.use('/', serviceRoutes);
-app.use('/payment', payment);
+app.use('/payment', paymentRoutes);
 app.use('/services', employeeRoutes);
 app.use('/user',userRoutes);
 app.use('/worker',workerRoutes );
+app.use('/reservations', reservationRoutes); 
 
 // Serve Static Uploads
 app.use('/uploads', express.static('uploads'));
+app.use('/reservationImgs', express.static('reservationImgs'));
 
 // Start Server
 app.listen(3001, () => {
