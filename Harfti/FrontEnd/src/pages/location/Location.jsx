@@ -3,11 +3,14 @@ import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { ArrowRight } from 'lucide-react';
 import gsap from "gsap";
-import { Link } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const MyMap = () => {
   const [location, setLocation] = useState({ lat: 33.5731, lng: -7.5898 }); // Default to Casablanca
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
   const refBtn = useRef();
   const refMap = useRef();
   const refTitle = useRef();
@@ -35,6 +38,15 @@ const MyMap = () => {
     localStorage.setItem('location', JSON.stringify(location));
   }, [location])
 
+
+  function addLocation(){
+    if(location){
+      toast.success('Location Added succesfuly')
+      navigate('/Problem');
+    }else{
+      toast.error('Location does not Added !')
+    }
+  }
 
   // Handle mouse hover effect for the button
   const handleMouseEnter = () => setIsHovered(true);
@@ -76,7 +88,7 @@ const MyMap = () => {
               <div ref={refBtn} className=" w-[100%] flex-col items-end flex justify-center  text-center">
 
 
-                <Link to="/Problem">
+                
                   <button
 
                     className={`mt-4 px-6 py-2 text-white font-semibold rounded-md flex items-center gap-x-2 transition-all duration-300 ${isHovered
@@ -85,11 +97,12 @@ const MyMap = () => {
                       }`}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={addLocation}
 
                   >
                     Next <ArrowRight />
                   </button>
-                </Link>
+                
               </div>
             </div>
           </div >

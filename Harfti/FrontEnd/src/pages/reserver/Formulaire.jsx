@@ -3,20 +3,18 @@ import axios from "axios";
 import gsap from "gsap";
 import { Camera, NotebookPen, Phone, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast, ToastContainer } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Formulaire() {
     const refTitle = useRef();
     const refInputs = useRef([]);
     const navigate = useNavigate();
-    const [message, setMessage] = useState('');
     const [reservation, setReservation] = useState({
-
         userId: JSON.parse(sessionStorage.getItem('userID'))
     });
     const formData = new FormData();
-
-    console.log(reservation);
 
     const handleOnChange = (e) => {
         setReservation({ ...reservation, [e.target.name]: e.target.value });
@@ -42,35 +40,39 @@ export default function Formulaire() {
     function reserver() {
         const location = JSON.parse(localStorage.getItem('location')) || { lat: 0, lng: 0 };
 
+        if (!reservation.image || !reservation.contact || !reservation.description) {
+            toast.error("Append the inputs !");
+            return;
+        }
+
         Object.keys(reservation).forEach((key) => {
             formData.append(key, reservation[key]);
         });
 
         formData.append('location', JSON.stringify(location));
-        
-
 
         // Send form data to backend using Axios
         axios.post('http://localhost:3001/reservations/reserver', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
-            .then((res) => {
-                setMessage(res.data.message);
-            })
-            .catch((err) => {
-                setMessage('Error: ' + err.message);
-            });
-
+        .then((res) => {
+            if (res.data.status === "success") {
+                toast.success(res.data.message);
+                setTimeout(() => {
+                    navigate('/Problem/Payment');
+                }, 2000); // Redirect after a brief success toast
+            } else {
+                toast.error(res.data.message);
+            }
+        })
+        .catch((err) => {
+            toast.error('Error: ' + err.message);
+        });
     }
-
-    useEffect(() => {
-        if (message === "Reservation complete") {
-            navigate('/Problem/Payment');
-        }
-    })
 
     return (
         <div className="min-h-screen w-full flex flex-col px-4 sm:px-0 items-center select-none">
+            <ToastContainer />
             <div ref={refTitle} className="flex items-center">
                 <h1 className="text-center 2xl:text-6xl sm:text-4xl text-2xl font-extrabold text-orange-500 cursor-default">
                     Describe Your Problem
@@ -120,9 +122,6 @@ export default function Formulaire() {
                         <span>Send</span>
                         <Send className="w-4 h-4 rotate-170" />
                     </button>
-                </div>
-                <div>
-                    <p className="text-center font-bold text-red-500">{message}</p>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ router.post('/reserver', upload.single('image'), async (req, res) => {
         const parsedLocation = JSON.parse(location);
         
         const user = await usersCollection.findOne({ _id: reservationInfos.userId });
-        console.log(reservationInfos)
+
         if (user) {
             const imageName = req.file ? req.file.filename : reservationInfos.image.name;
             const reservation = new reservationsCollection({

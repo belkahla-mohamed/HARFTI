@@ -43,7 +43,7 @@ router.put("/Profile/Update", async (req, res) => {
     );
 
     if (modifier) {
-      res.send({ status: "success", message: "user updated" });
+      res.send({ status: "success", message: "Infos updated successfully" });
     } else {
       res.send({ status: "error", message: "user dont updated" });
     }

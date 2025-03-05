@@ -10,7 +10,7 @@ export default function Avatar({ setItems,setImag }) {
             AvatarRefs.current,{
                 opacity:1,
                 stagger:0.3,
-                duration:2,
+                duration:0.5,
             }
         )
     },[])
