@@ -14,6 +14,7 @@ import Index from "./pages/payment";
 import Cash from "./pages/payment/Cash";
 import Online from "./pages/payment/Online";
 import Worker from "./pages/job/Worker";
+import Form from "./pages/User/to job/form";
 
 export default function App() {
 
@@ -42,6 +43,7 @@ export default function App() {
                         <Route path="/Problem/Payment/Online" element={<Online />} />
                         <Route path="/Worker" element={<Worker/>} />
                         <Route path="/Services/:service" element={<EmployeesService/>} />
+                        <Route  path="/ToWorker" element={<Form/>} />
                     </Routes>
                 </div>
                 <Footer scrollTopHome={scrollTopHome} />

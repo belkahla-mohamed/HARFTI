@@ -67,7 +67,7 @@ export default function EmployeesService() {
                     >
                         <img
                             className="w-32 h-32"
-                            src={`http://localhost:3001/uploads/${employee.image}`}
+                            src={`http://localhost:3001/EmployeePhotos/${employee.photo}`}
                             alt={employee.image}
                         />
                         <div className="  text-center">

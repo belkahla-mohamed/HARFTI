@@ -13,7 +13,7 @@ export default function Worker() {
     
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:3001/worker/workers")
+        axios.get("http://127.0.0.1:3001/services/employees")
             .then((res) => {
                 if (res.data.status === "success") {
                     setWorkers(res.data.workers);
@@ -73,8 +73,8 @@ export default function Worker() {
                         >
                             <img
                                 className="w-32 h-32"
-                                src={`http://localhost:3001/uploads/${worker.image}`}
-                                alt={worker.image}
+                                src={`http://localhost:3001/EmployeePhotos/${worker.photo}`}
+                                alt={worker.photo}
                             />
                             <div className="  text-center">
                                 <p className="text-xl font-bold "> {worker.fullname}</p>

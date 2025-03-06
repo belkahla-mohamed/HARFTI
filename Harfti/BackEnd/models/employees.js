@@ -9,7 +9,7 @@ const employeesSchema = new mongoose.Schema({
         tel : Number,
         email : String
     },
-    image : String
+    photo : String
 })
 
 

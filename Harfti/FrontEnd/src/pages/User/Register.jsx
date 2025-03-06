@@ -9,7 +9,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { PiPassword } from "react-icons/pi";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 
 
 export default function Register() {
