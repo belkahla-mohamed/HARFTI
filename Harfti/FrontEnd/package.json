@@ -27,7 +27,7 @@
     "react-router-dom": "^7.1.5",
     "react-toastify": "^11.0.5",
     "redux": "^5.0.1",
-    "redux-devtools-extension": "^2.13.9",
+    "sweetalert2": "^11.17.2",
     "swiper": "^11.2.2",
     "tailwindcss": "^4.0.3"
   },

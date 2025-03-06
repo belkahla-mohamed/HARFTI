@@ -6,6 +6,7 @@ import InfoProfile from "./InfoProfile";
 import InputProfile from "./InputProfile";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 export default function Profile() {
     const navigate = useNavigate()
 
@@ -44,9 +45,22 @@ export default function Profile() {
     }, [Update])
 
     function Logout() {
-        sessionStorage.removeItem("userID")
-        
-        navigate('/Register')
+        Swal.fire({
+            title: "Are You sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#333333',
+            cancelButtonColor: "red",
+            confirmButtonText: 'Yes, Logout!'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                sessionStorage.removeItem("userID")
+
+                navigate('/Register')
+            }
+        })
+
     }
 
 
@@ -59,7 +73,7 @@ export default function Profile() {
                 .then((res) => {
                     if (res.data.status === "success") {
                         toast.success(res.data.message);
-                    }else{
+                    } else {
                         toast.error(res.data.message);
                     }
                 })
@@ -69,11 +83,16 @@ export default function Profile() {
             console.log(error)
         }
         setEdit(false)
+    
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+        
     }
     return (
         <div className="w-full flex justify-center sm:p-0 p-4 text-white  ">
             <ToastContainer />
-            <div className="sm:w-[50%] w-full  bg-[white] shadow-2xl bg-[url('/test6.jpg')] bg-cover bg-center   rounded-sm sm:mt-5 text-center  h-[auto] mt-52  flex-col  flex pb-11   items-center  ">
+            <div className="sm:w-[50%] w-full  bg-[white] shadow-2xl bg-[url('/test6.jpg')] bg-cover bg-center   rounded-sm sm:mt-5 text-center  h-[auto] mt-20  flex-col  flex pb-11   items-center  ">
                 <div className="w-full flex justify-end p-3" title="Logout" >
                     <LogOut className="text-red-600 w-9 h-9 bg-red-400 rounded-[50%]  p-1.5 hover:text-red-400  hover:bg-red-700  " onClick={Logout} />
                 </div>

@@ -89,6 +89,7 @@ export default function Register() {
                 } else {
                     setError(res.data.message);
                 }
+                window.location.reload();
             })
             .catch((error) => {
                 setError({ message: "Error in login", error });

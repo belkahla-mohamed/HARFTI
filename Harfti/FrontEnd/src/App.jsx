@@ -17,7 +17,12 @@ import Worker from "./pages/job/Worker";
 
 export default function App() {
 
-
+    function scrollTopHome(){
+        window.scrollTo({
+            top:0,
+            behavior:'smooth'
+        })
+    }
 
     return (
         <>
@@ -39,7 +44,7 @@ export default function App() {
                         <Route path="/Services/:service" element={<EmployeesService/>} />
                     </Routes>
                 </div>
-                <Footer />
+                <Footer scrollTopHome={scrollTopHome} />
 
             </BrowserRouter>
 

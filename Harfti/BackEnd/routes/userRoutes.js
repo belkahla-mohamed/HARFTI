@@ -26,7 +26,8 @@ router.put("/Profile/Update", async (req, res) => {
   let { userID, newemail, newfirstName, newlastName, newusername, Items } =
     req.body;
     if(!Items){
-        Items = 'default.png'
+        const user = usersCollection.findOne({_id:userID});
+        Items = user.image
     }
   try {
     modifier = await usersCollection.updateOne(
