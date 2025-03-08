@@ -15,7 +15,7 @@ export default function EmployeesService() {
 
     useEffect(() => {
 
-
+        window.scrollTo({top:0})
         axios.get("http://127.0.0.1:3001/services/employees");
         axios.post("http://127.0.0.1:3001/services/employees", { service })
             .then((res) => {

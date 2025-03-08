@@ -1,6 +1,6 @@
 import {
     Anvil, Axe, BrickWall, Briefcase, Circle, Flame,
-    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench
+    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench, Sprout, ShowerHead, PaintRoller 
 } from "lucide-react";
 
 import React, { useEffect, useState } from "react";
@@ -10,12 +10,12 @@ import { Link } from "react-router-dom";
 // خريطة للأيقونات المتاحة
 const iconsMap = {
     Anvil, Axe, BrickWall, Briefcase, Circle, Flame,
-    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench
+    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench, Sprout, ShowerHead, PaintRoller 
 };
 
 export default function Services() {
     const [message, setMessage] = useState('');
-    const [services, setServices] = useState([]); // ✅ تحديد قيمة افتراضية كمصفوفة فارغة
+    const [services, setServices] = useState([]); 
 
     useEffect(() => {
         axios.get('http://localhost:3001/services')
@@ -30,7 +30,7 @@ export default function Services() {
             .catch((err) => console.log(err));
     }, []);
 
-    console.log(services);
+
 
     const iconsClass = "w-20 h-20 text-white";
     const titleClass = "text-center text-white font-bold hover:drop-shadow-[0_0_10px_white] drop-shadow-[0_2px_0px_#333333] cursor-default duration-100 ease-in-out";

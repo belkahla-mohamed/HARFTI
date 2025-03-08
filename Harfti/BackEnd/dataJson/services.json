@@ -1,42 +1,80 @@
 [
     {
-        "icon" : "Package",
-        "title" : "Delivery Person"
+        "icon": "Package",
+        "title": "Delivery Person",
+        "image": "Delivery.jpg",
+        "description": "Responsible for delivering packages to customers' doors or businesses in a timely manner."
     },
     {
-        "icon" : "Axe",
-        "title" : "Carpenter"
+        "icon": "ShowerHead",
+        "title": "Plumber",
+        "image": "plumber.jpg",
+        "description": "Installs, repairs, and maintains piping systems in homes and businesses."
     },
     {
-        "icon" : "Anvil",
-        "title" : "Blacksmith"
+        "icon": "PaintRoller",
+        "title": "Painter",
+        "image": "painter.jpg",
+        "description": "Applies paint, stain, or other finishes to surfaces like walls, ceilings, and furniture."
     },
     {
-        "icon" : "Wrench",
-        "title" : "Mechanic"
+        "icon": "Wrench",
+        "title": "Mechanic",
+        "image": "mechanic.jpg",
+        "description": "Repairs and maintains vehicles, machinery, and equipment to ensure they function properly."
     },
     {
-        "icon" : "Gem",
-        "title" : "Goldsmith"
+        "icon": "BrickWall",
+        "title": "Builder",
+        "image": "builder.jpg",
+        "description": "Constructs buildings and other structures by assembling materials like brick, stone, and wood."
     },
     {
-        "icon" : "BrickWall",
-        "title" : "Builder"
+        "icon": "Sprout",
+        "title": "Gardener",
+        "image": "gardener.jpg",
+        "description": "Takes care of plants, gardens, and landscaping to enhance the aesthetic value of outdoor spaces."
     },
     {
-        "icon" : "ScissorsLineDashed",
-        "title" : "Tailor"
+        "icon": "Axe",
+        "title": "Carpenter",
+        "image": "Carpenter.png",
+        "description": "Works with wood to create furniture, buildings, and other structures."
     },
     {
-        "icon" : "Palette",
-        "title" : "Craftsperson"
+        "icon": "Anvil",
+        "title": "Blacksmith",
+        "image": "Blacksmith.png",
+        "description": "Uses heat and tools to shape metal into useful items such as tools, weapons, and equipment."
     },
     {
-        "icon" : "Briefcase",
-        "title" : "Leatherworker"
+        "icon": "Gem",
+        "title": "Goldsmith",
+        "image": "Goldsmith.png",
+        "description": "Crafts and repairs jewelry and other objects from gold, silver, and precious stones."
     },
     {
-        "icon" : "Flame",
-        "title" : "Welder"
+        "icon": "ScissorsLineDashed",
+        "title": "Tailor",
+        "image": "Tailor.png",
+        "description": "Alters and repairs clothing, creating custom designs to fit the needs of clients."
+    },
+    {
+        "icon": "Palette",
+        "title": "Craftsperson",
+        "image": "Craftsperson.png",
+        "description": "Creates handmade objects and works of art, often using a variety of materials and techniques."
+    },
+    {
+        "icon": "Briefcase",
+        "title": "Leatherworker",
+        "image": "Leatherworker.png",
+        "description": "Designs and creates products from leather, including bags, clothing, and accessories."
+    },
+    {
+        "icon": "Flame",
+        "title": "Welder",
+        "image": "Welder.png",
+        "description": "Uses welding tools to join metal pieces together, often in construction or manufacturing."
     }
 ]

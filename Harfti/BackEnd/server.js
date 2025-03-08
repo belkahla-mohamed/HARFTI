@@ -31,6 +31,7 @@ app.use('/reservations', reservationRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/reservationImgs', express.static('reservationImgs'));
 app.use('/EmployeePhotos', express.static('EmployeePhotos'));
+app.use('/servicesPhotos', express.static('servicesPhotos'));
 // Start Server
 app.listen(3001, () => {
     console.log('Server is running on port 3001');

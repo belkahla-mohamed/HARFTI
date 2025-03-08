@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const  servicesCollection  = require('../models/Services');
+const servicesCollection = require('../models/Services');
 
 const router = express.Router();
 
@@ -10,15 +10,18 @@ router.get('/services', async (req, res) => {
         const data = await fs.promises.readFile('./dataJson/services.json', 'utf8');
         const servicesData = JSON.parse(data);
 
-        let check = await servicesCollection.find().lean();
+        if (!Array.isArray(servicesData) || servicesData.length === 0) {
+            return res.status(400).json({ status: 'error', message: 'Invalid or empty services data' });
+        }
 
-        if (check.length === 0) {
+        $result = await servicesCollection.deleteMany();
+        if ($result) {
             await servicesCollection.insertMany(servicesData);
             check = await servicesCollection.find().lean();
             return res.json({ status: 'success', services: check });
-        } else {
-            return res.json({ status: 'success', services: check });
         }
+
+
 
     } catch (err) {
         console.error('Error in /services:', err);
