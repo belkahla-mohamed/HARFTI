@@ -2,25 +2,38 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema({
-    firstName : {
+    fullname : {
         type : String
     },
-    lastName : {
-        type : String
-    },
+    
     username : {
         type : String,
         unique : true
     },
     email : {
-        type : String
+        type : String,
+        unique: true
     },
     password : {
         type : String
     },
-    image : {
+    photo : {
         type : String
+    },
+    age:{
+        type : Number
+    },
+    phone :{
+        type : Number
+    },
+    role:{
+        type: String
+    },
+    service : {
+        type: String
     }
+    
+
 })
 
 const reservationSchema = new mongoose.Schema({

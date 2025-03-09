@@ -104,8 +104,8 @@ export default function Navbar() {
           {userID ? (
             <button onMouseEnter={() => setShow(true)} onClick={() => setShow(!show)} className="relative sm:block hidden">
 
-              {user && user.image ? (
-                <img src={`http://localhost:3001/uploads/${user.image}`} alt="User Profile" className="w-[50px] h-[50px]" />
+              {user && user.photo ? (
+                <img src={`http://localhost:3001/EmployeePhotos/${user.photo}`} alt="User Profile" className="w-[50px]  rounded-[50%] h-[50px]" />
               ) : (
                 <CircleUserRound className="w-8 h-8 text-white" /> // Fallback icon
               )}
