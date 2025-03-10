@@ -157,8 +157,10 @@ export default function Register() {
             if (res.data.status === "success") {
                 setSuccess(res.data.message);
                 sessionStorage.setItem("userID", JSON.stringify(res.data.user._id));
+                sessionStorage.setItem("role", JSON.stringify(res.data.user.role));
                 navigate('/');
                 window.location.reload();
+                
             } else {
                 setError(res.data.message);
                 Swal.fire({
@@ -224,11 +226,11 @@ console.log(yupError);
                                     
                                     <InputField Icon={PiPassword} type="password" onChange={(e) => { setUser({ ...user, password: e.target.value }); validateRegisterField('password', e.target.value); }} placeholder="Password" />
                                     
-                                    <div className={`${role === 'user' ? "w-full  flex items-center space-x-2 " : 'hidden'}`}> <input type="checkbox" name="" id="role" className="h-4 w-4" value='employe' onChange={(e) => {setRole(e.target.value) ;  setUser({...user , role:e.target.value})} } /><label htmlFor="role" className="" > Do you want to be an <span className="">employee ?</span>  </label>
+                                    <div className={`${role === 'user' ? "w-full  flex items-center space-x-2 " : 'hidden'}`}> <input type="checkbox" name="" id="role" className="h-4 w-4" value='employee' onChange={(e) => {setRole(e.target.value) ;  setUser({...user , role:e.target.value})} } /><label htmlFor="role" className="" > Do you want to be an <span className="">employee ?</span>  </label>
                                     </div>
                                     
                                 </div>
-                                {role === 'employe' ? <Form setUser={setUser} setYupError={setYupError} user={user} /> : ''}
+                                {role === 'employee' ? <Form setUser={setUser} setYupError={setYupError} user={user} /> : ''}
                             </div>
                             <button type="submit" onClick={Add} className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Register</button>
                         </div>

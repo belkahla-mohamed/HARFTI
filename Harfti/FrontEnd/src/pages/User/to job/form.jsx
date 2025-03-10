@@ -4,7 +4,7 @@ import Select from "react-select";
 import {
     CalendarDays, HandPlatter, ImageDown, Phone, 
     Anvil, Axe, BrickWall, Briefcase, Circle, Flame,
-    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench,
+    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench, Sprout, ShowerHead, PaintRoller 
    
 } from "lucide-react";
 import * as Yup from 'yup';
@@ -12,7 +12,7 @@ import 'animate.css';
 
 const iconsMap = {
     Anvil, Axe, BrickWall, Briefcase, Circle, Flame,
-    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench
+    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench, Sprout, ShowerHead, PaintRoller 
 };
 
 // Define the Yup validation schema

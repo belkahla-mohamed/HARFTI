@@ -15,7 +15,7 @@ export default function EmployeesService() {
 
     useEffect(() => {
 
-        window.scrollTo({top:0})
+        window.scrollTo({ top: 0 })
         axios.get("http://127.0.0.1:3001/services/employees");
         axios.post("http://127.0.0.1:3001/services/employees", { service })
             .then((res) => {
@@ -41,7 +41,6 @@ export default function EmployeesService() {
             });
         }
     }, [employees]);
-
     return (
         <div className="min-h-screen px-9 sm:px-0 w-full flex flex-col gap-10 mt-20 items-center select-none">
             <h1 className="sm:text-start text-center sm:text-6xl text-2xl  font-extrabold text-orange-500 cursor-default">Workers in {service}</h1>
@@ -56,38 +55,48 @@ export default function EmployeesService() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.9 }}
             >
-                {employees.map((employee) => (
-                    <motion.div
-                        key={employee.id}
-                        className="flex-col p-3   rounded-xl shadow-xl bg-gray-300 space-y-2 flex items-center    w-full    hover:shadow-2xs duration-200 ease-in flex-wrap"
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <img
-                            className="w-32 h-32"
-                            src={`http://localhost:3001/EmployeePhotos/${employee.photo}`}
-                            alt={employee.image}
-                        />
-                        <div className="  text-center">
-                            <p className="text-xl font-bold "> {employee.fullname}</p>
-                            <p className="text-lg text-[#333333]"> {employee.service}</p>
-                            <p className="text-sm text-[#333333]">{employee.contact?.tel || "N/A"}</p>
-                            <p className="text-sm text-[#333333]">{employee.age} years old</p>
-                        </div>
-                        <div className="w-full flex justify-center">
-                            <Link to="/location">
-                                <button
-                                    className="flex bg-orange-500 hover:bg-orange-600 ease-in-out duration-100 p-2 rounded font-bold text-white gap-2 cursor-pointer"
-                                >
-                                    <Phone /> Contact Now
-                                </button>
-                            </Link>
+                {employees.map((employee) => {
+                    const folder = employee?.photo?.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
 
-                        </div>
-                    </motion.div>
-                ))}</motion.div>
+                    const imageSource = employee && employee.photo
+                        ? `http://localhost:3001/${folder}/${employee.photo}`
+                        : 'http://localhost:3001/uploads/default.png';
+                    return (
+                        <motion.div
+                            key={employee.id}
+                            className="flex-col p-3   rounded-xl shadow-xl bg-gray-300 space-y-2 flex items-center    w-full    hover:shadow-2xs duration-200 ease-in flex-wrap"
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                        >
+
+
+                            <img
+                                className="w-32 h-32 rounded-full object-cover"
+                                src={imageSource}
+                                alt={employee.fullname}
+                            />
+                            <div className="  text-center">
+                                <p className="text-xl font-bold "> {employee.fullname}</p>
+                                <p className="text-lg text-[#333333]"> {employee.service}</p>
+                                <p className="text-sm text-[#333333]">{employee?.phone || "N/A"}</p>
+                                <p className="text-sm text-[#333333]">{employee.age} years old</p>
+                            </div>
+                            <div className="w-full flex justify-center">
+                                <Link to="/location">
+                                    <button
+                                        className="flex bg-orange-500 hover:bg-orange-600 ease-in-out duration-100 p-2 rounded font-bold text-white gap-2 cursor-pointer"
+                                    >
+                                        <Phone /> Contact Now
+                                    </button>
+                                </Link>
+
+                            </div>
+                        </motion.div>
+                    )
+
+                })}</motion.div>
             ) : (
                 <p className="sm:text-2xl text-sm text-gray-400 text-center font-bold">Aucun {service}s trouvé.</p>
             )}

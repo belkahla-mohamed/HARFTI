@@ -18,6 +18,7 @@ export default function Services() {
     const [services, setServices] = useState([]); 
 
     useEffect(() => {
+        window.scrollTo({ top: 0 })
         axios.get('http://localhost:3001/services')
             .then((res) => {
                 if (res.data.status === "success") {
