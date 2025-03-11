@@ -112,16 +112,16 @@ export default function Navbar() {
               <button onMouseEnter={() => setShow(true)} onClick={() => setShow(!show)} className="relative sm:block hidden">
 
                 {user && user.photo ? (
-                  <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className="w-[50px] border border-white border-2 rounded-[50%] h-[50px]" />
+                  <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className={`w-[50px] border ${location.pathname === "/Profile" ? "border-orange-500" : "border-white"} border-2 rounded-[50%] h-[50px]`} />
                 ) : (
-                  <CircleUserRound className="w-[50px] h-[50px] text-white" /> // Fallback icon
+                  <CircleUserRound className={`w-[50px] h-[50px] ${location.pathname === "/Profile" ? "text-orange-500" : "text-white"}`} /> // Fallback icon
                 )}
 
               </button>
             ) : (
               <button className="hidden sm:block">
                 <Link to="/Register">
-                  <UserPlus className="w-[50px] h-[50px] text-white" />
+                  <UserPlus className={`w-[50px] h-[50px] ${location.pathname === "/Register" ? "text-orange-500" : "text-white"}`} />
                 </Link>
               </button>
             )}

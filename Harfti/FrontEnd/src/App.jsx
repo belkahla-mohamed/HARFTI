@@ -15,14 +15,15 @@ import Cash from "./pages/payment/Cash";
 import Online from "./pages/payment/Online";
 import Worker from "./pages/job/Worker";
 import Form from "./pages/User/to job/form";
+import NotFound from "./404/notFound";
 
 
 export default function App() {
 
-    function scrollTopHome(){
+    function scrollTopHome() {
         window.scrollTo({
-            top:0,
-            behavior:'smooth'
+            top: 0,
+            behavior: 'smooth'
         })
     }
 
@@ -31,7 +32,7 @@ export default function App() {
 
             <BrowserRouter>
                 <Navbar />
-                <div className=' sm:mx-[10em] 2xl:mx-[18em]'>
+                <div className='sm:mx-[10em] 2xl:mx-[18em]'>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/Profile" element={<Profile />} />
@@ -42,9 +43,10 @@ export default function App() {
                         <Route path="/Problem/Payment" element={<Index />} />
                         <Route path="/Problem/Payment/Cash" element={<Cash />} />
                         <Route path="/Problem/Payment/Online" element={<Online />} />
-                        <Route path="/Worker" element={<Worker/>} />
-                        <Route path="/Services/:service" element={<EmployeesService/>} />
-                        <Route  path="/ToWorker" element={<Form/>} />
+                        <Route path="/Worker" element={<Worker />} />
+                        <Route path="/Services/:service" element={<EmployeesService />} />
+                        <Route path="/ToWorker" element={<Form />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>
                 <Footer scrollTopHome={scrollTopHome} />
