@@ -4,7 +4,7 @@ const { usersCollection } = require("../models/User");
 const { ObjectId } = require('mongodb');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs').promises;
+const fs = require('fs');
 const bcrypt = require('bcrypt');
 
 // Get user profile by user ID
@@ -42,71 +42,66 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Update user profile (including photo and password)
-router.put("/Profile/Update", upload.single('photo'), async (req, res) => {
+router.put("/Profile/Update", upload.single("photo"), async (req, res) => {
   try {
-    const { userID, oldPass, newPass, ...formData } = req.body;
+    const { userID, oldPass, newPass, service, ...formData } = req.body;
     const file = req.file;
     const userId = new ObjectId(userID);
 
+    // Parse the service JSON string
+    let serviceLabels;
+    try {
+      serviceLabels = JSON.parse(service); // Convert JSON string to array
+    } catch (error) {
+      console.error("Service parsing error:", error);
+      return res.status(400).json({ status: "error", message: "Invalid service format" });
+    }
+
+    // Ensure it's an array
+    if (!Array.isArray(serviceLabels)) {
+      return res.status(400).json({ status: "error", message: "Service must be an array" });
+    }
+
+    formData.service = serviceLabels; // Store only labels
+
+    // Validate user existence
     const user = await usersCollection.findOne({ _id: userId });
-
     if (!user) {
-      return res.send({ status: "error", message: "User not found" });
+      return res.status(404).json({ status: "error", message: "User not found" });
     }
 
-    // Delete old photo if it's not a default photo
-    const oldPhoto = user.photo;
-    if (oldPhoto && !oldPhoto.startsWith('avatar') && oldPhoto !== 'default.png') {
-      const filePath = path.join(__dirname, "EmployeePhotos", oldPhoto);
-      try {
-        await fs.unlink(filePath);
-      } catch (err) {
-        console.error("Error deleting old photo:", err);
-      }
-    }
-
-    // If new photo is uploaded, update the photo field
-    if (file) {
-      formData.photo = file.filename;
-    }
-
-    // Check and verify old password
-    if (!oldPass) {
-      return res.send({ status: "error", message: "Old password must be provided to update your information" });
-    }
-
-    const passwordMatch = await bcrypt.compare(oldPass, user.password);
-    if (!passwordMatch) {
-      return res.send({ status: "error", message: "Incorrect old password" });
-    }
-
-    // Handle new password if provided
+    // Validate password if changing it
     if (newPass) {
-      const hashedPassword = await bcrypt.hash(newPass, 10);
-      formData.password = hashedPassword;
-    } else {
-      delete formData.password; // Don't overwrite the password if new one is not provided
+      const passwordMatch = await bcrypt.compare(oldPass, user.password);
+      if (!passwordMatch) return res.json({ status: "error", message: "Incorrect old password" });
+
+      formData.password = await bcrypt.hash(newPass, 10);
+    }
+    if (!user?.photo?.startsWith('avatar') && user?.photo !== 'default.png') {
+      const photoPath = path.join('C:/Users/belka/OneDrive/Documents/project Duo/HARFTI/Harfti/BackEnd/EmployeePhotos', user.photo);
+      if(fs.existsSync(photoPath)){
+        await fs.promises.unlink(photoPath)
+      }
+      
+    }
+    if (file) {
+
+      const photoName = file.filename
+      formData.photo = photoName
     }
 
-    // Remove oldPass and newPass from the data to avoid saving them in the DB
-    delete formData.oldPass;
-    delete formData.newPass;
+    // Update user in MongoDB
+    const result = await usersCollection.updateOne({ _id: userId }, { $set: formData });
 
-    // Update the user data in the database
-    const result = await usersCollection.updateOne(
-      { _id: userId },
-      { $set: formData }
-    );
-
-    if (result.modifiedCount > 0) {
-      return res.send({ status: "success", message: "Information updated successfully!" });
-    } else {
-      return res.send({ status: "error", message: "No changes were made" });
-    }
+    return res.json({
+      status: result.modifiedCount > 0 ? "success" : "error",
+      message: result.modifiedCount > 0 ? "Information updated successfully!" : "No changes were made",
+    });
   } catch (error) {
-    console.error(error);
-    return res.send({ status: "error", message: "Server error", error });
+    console.error("Update error:", error);
+    return res.status(500).json({ status: "error", message: "Server error", error });
   }
 });
+
 
 module.exports = router;

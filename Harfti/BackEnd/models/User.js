@@ -2,39 +2,17 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema({
-    fullname : {
-        type : String
-    },
-    
-    username : {
-        type : String,
-        unique : true
-    },
-    email : {
-        type : String,
-        unique: true
-    },
-    password : {
-        type : String
-    },
-    photo : {
-        type : String
-    },
-    age:{
-        type : Number
-    },
-    phone :{
-        type : Number
-    },
-    role:{
-        type: String
-    },
-    service : {
-        type: String
-    }
-    
+    fullname: { type: String },
+    username: { type: String, unique: true },
+    email: { type: String, unique: true },
+    password: { type: String },
+    photo: { type: String },
+    age: { type: Number },
+    phone: { type: Number },
+    role: { type: String },
+    service: { type: [String], default: [] } // ✅ Store as an array of strings
+});
 
-})
 
 const reservationSchema = new mongoose.Schema({
     location : {

@@ -49,6 +49,7 @@ export default function Navbar() {
     }).then((res) => {
       if (res.isConfirmed) {
         sessionStorage.removeItem("userID")
+        sessionStorage.removeItem('role')
         setShow(false)
         navigate('/Register')
       }
@@ -113,14 +114,14 @@ export default function Navbar() {
                 {user && user.photo ? (
                   <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className="w-[50px] border border-white border-2 rounded-[50%] h-[50px]" />
                 ) : (
-                  <CircleUserRound className="w-8 h-8 text-white" /> // Fallback icon
+                  <CircleUserRound className="w-[50px] h-[50px] text-white" /> // Fallback icon
                 )}
 
               </button>
             ) : (
               <button className="hidden sm:block">
                 <Link to="/Register">
-                  <UserPlus className="w-8 h-8 text-white" />
+                  <UserPlus className="w-[50px] h-[50px] text-white" />
                 </Link>
               </button>
             )}

@@ -21,36 +21,45 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage })
-router.post('/create', upload.single('photo'), async (req, res) => {
+router.post("/create", upload.single("photo"), async (req, res) => {
     try {
-        const { fullname, username, email, password, role, service, age, phone, photo } = req.body;
+        let formData = req.body;
 
-        console.log(photo)
-
-        const PhotoName = req.file ? req.file.filename : photo;
-        
-        if (!fullname || !username || !email || !password) {
-            return res.json({ status: 'error', message: 'All fields are required!' });
+        if (req.file) {
+            formData.photo = req.file.filename;
         }
 
-        const check = await usersCollection.findOne({ username });
-        if (check) {
-            return res.json({ status: 'error', message: 'Username already exists!' });
+        console.log(formData);
+
+        // Convert service from string to array if needed
+        if (typeof formData.service === "string") {
+            formData.service = JSON.parse(formData.service);
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
-        const user = new usersCollection({ fullname, username, email, password: passwordHash, photo: PhotoName, role, service, age, phone });
-        const result = await user.save();
-
-        if (result) {
-            const token = jwt.sign({ userId: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
-            return res.json({ status: 'success', message: 'User added successfully', token });
+        if (!Array.isArray(formData.service)) {
+            formData.service = []; // Ensure it's always an array
         }
-    } catch (err) {
-        console.error('Error in /create:', err);
-        res.status(500).json({ message: 'Error adding user', error: err.message });
+
+        // ✅ Hash the password before saving
+        if (formData.password) {
+            const salt = await bcrypt.genSalt(10); // Generate salt
+            formData.password = await bcrypt.hash(formData.password, salt); // Hash password
+        }
+
+        const newUser = new usersCollection({
+            ...formData,
+            service: formData.service // ✅ Now correctly stored as an array
+        });
+
+        await newUser.save();
+        res.status(201).json({ status: "success", message: "User created successfully" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "error", message: "Server error" });
     }
 });
+
 
 // User Login
 router.post('/login', async (req, res) => {

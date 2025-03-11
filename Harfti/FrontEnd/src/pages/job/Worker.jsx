@@ -2,8 +2,29 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Phone } from "lucide-react";
+import { 
+    Package, ShowerHead, PaintRoller, Wrench, BrickWall, Sprout, 
+    Axe, Anvil, Gem, ScissorsLineDashed, Palette, Briefcase, Flame,
+    Phone
+} from "lucide-react";
 import Combobox from "./select";
+
+// Define a mapping of services to icons
+const serviceIcons = {
+    "Delivery Person": Package,
+    "Plumber": ShowerHead,
+    "Painter": PaintRoller,
+    "Mechanic": Wrench,
+    "Builder": BrickWall,
+    "Gardener": Sprout,
+    "Carpenter": Axe,
+    "Blacksmith": Anvil,
+    "Goldsmith": Gem,
+    "Tailor": ScissorsLineDashed,
+    "Craftsperson": Palette,
+    "Leatherworker": Briefcase,
+    "Welder": Flame
+};
 
 export default function Worker() {
     const [workers, setWorkers] = useState([]);
@@ -12,7 +33,7 @@ export default function Worker() {
     const [newWorker, setNewWorker] = useState([]);
 
     useEffect(() => {
-        window.scrollTo({ top: 0 })
+        window.scrollTo({ top: 0 });
         axios.get("http://127.0.0.1:3001/services/employees")
             .then((res) => {
                 if (res.data.status === "success") {
@@ -24,17 +45,16 @@ export default function Worker() {
             })
             .catch((error) => {
                 console.log(error);
-                setMessage("Erreur lors du chargement des travailleurs.");
+                setMessage("Error loading workers.");
             });
     }, []);
-    
 
     useEffect(() => {
         if (servicesTitle === "" || servicesTitle === "All Workers") {
             setNewWorker(workers);
         } else {
             setNewWorker(
-                workers.filter((worker) => worker.service === servicesTitle)
+                workers.filter((worker) => Array.isArray(worker.service) && worker.service.includes(servicesTitle))
             );
         }
     }, [servicesTitle, workers]);
@@ -43,7 +63,7 @@ export default function Worker() {
         <div className="flex flex-col sm:px-0 px-9 py-10 w-full min-h-screen rounded-b-sm">
             <div className="w-full text-center text-orange-500 text-3xl font-bold pb-9">
                 <h1 className="text-center sm:text-6xl text-2xl font-extrabold text-orange-500 cursor-default">
-                    The workers
+                    The Workers
                 </h1>
             </div>
             <div className="w-full mb-9 flex justify-center">
@@ -58,6 +78,17 @@ export default function Worker() {
                     transition={{ duration: 0.9 }}
                 >
                     {newWorker.map((worker) => {
+                        // Ensure worker.service is an array
+                        let services = worker.service;
+                        if (typeof services === "string") {
+                            try {
+                                services = JSON.parse(services); // Convert to array
+                            } catch (error) {
+                                console.error("Error parsing services:", error);
+                                services = []; // Fallback to empty array
+                            }
+                        }
+
                         // Determine correct folder based on file name
                         const folder = worker.photo?.startsWith("avatar")
                             ? "uploads"
@@ -84,11 +115,23 @@ export default function Worker() {
                                 />
                                 <div className="text-center">
                                     <p className="text-xl font-bold">{worker.fullname}</p>
-                                    <p className="text-lg text-[#333333]">{worker.service}</p>
                                     <p className="text-sm text-[#333333]">{worker?.phone || "N/A"}</p>
                                     <p className="text-sm text-[#333333]">{worker.age} years old</p>
                                 </div>
-                                <div className="w-full flex justify-center">
+
+                                {/* Display Services */}
+                                <div className="flex flex-wrap justify-center gap-2 mt-1">
+                                    {(Array.isArray(services) ? services : []).map((service, index) => (
+                                        service && (
+                                            <span key={index} className="flex items-center bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-sm">
+                                                {serviceIcons[service] && React.createElement(serviceIcons[service], { className: "w-4 h-4 mr-1" })}
+                                                {service}
+                                            </span>
+                                        )
+                                    ))}
+                                </div>
+
+                                <div className="w-full flex justify-center mt-3">
                                     <Link to="/location">
                                         <button className="flex bg-orange-500 hover:bg-orange-600 ease-in-out duration-100 p-2 rounded font-bold text-white gap-2 cursor-pointer">
                                             <Phone /> Contact Now

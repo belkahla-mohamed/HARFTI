@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import {
-    CalendarDays, HandPlatter, ImageDown, Phone, 
-    Anvil, Axe, BrickWall, Briefcase, Circle, Flame,
-    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench, Sprout, ShowerHead, PaintRoller 
-   
-} from "lucide-react";
+import * as LucideIcons from "lucide-react"; 
 import * as Yup from 'yup';
-import 'animate.css';
+import { motion } from "framer-motion";
 
-const iconsMap = {
-    Anvil, Axe, BrickWall, Briefcase, Circle, Flame,
-    Gem, Package, Palette, ScissorsIcon, ScissorsLineDashed, Wrench, Sprout, ShowerHead, PaintRoller 
-};
+
 
 // Define the Yup validation schema
 const validationSchema = Yup.object().shape({
@@ -42,9 +34,10 @@ const validationSchema = Yup.object().shape({
         .required('Year is required')
 });
 
-export default function Form({setUser , user , setYupError}) {
+export default function Form({ selectedServices, setSelectedServices, setUser, user, setYupError }) {
     const [services, setServices] = useState([]);
     const [errors, setErrors] = useState({});
+    
     const [date, setDate] = useState({
         year: null,
         month: null,
@@ -57,16 +50,19 @@ export default function Form({setUser , user , setYupError}) {
             .then((res) => {
                 if (res.data.status === "success") {
                     setServices(res.data.services.map(service => ({
-                        value: service.id,
+                        value: service.title,
                         label: service.title,
-                        icon: iconsMap[service.icon] ? React.createElement(iconsMap[service.icon], { className: "w-4 h-4 text-black" }) : null
+                        icon: LucideIcons[service.icon]
+                            ? React.createElement(LucideIcons[service.icon], { className: "w-4 h-4 text-black" })
+                            : null
+
                     })));
                 }
             })
             .catch((err) => console.log(err));
     }, []);
 
-
+    console.log(user)
 
     const customStyles = {
         control: (provided) => ({
@@ -118,9 +114,10 @@ export default function Form({setUser , user , setYupError}) {
     };
 
     const handleSelectChange = (selectedOption) => {
-        setUser({ ...user, service: selectedOption.label });
-        setTouched({ ...touched, service: true }); // Mark the field as touched
+        setSelectedServices([selectedOption.label]); // تخزين القيمة كمصفوفة
+        setTouched({ ...touched, service: true }); // وضع الحقل كمحدد
     };
+
 
     // Validate form data and date whenever they change
     useEffect(() => {
@@ -159,43 +156,23 @@ export default function Form({setUser , user , setYupError}) {
             });
         }
     }, [date]);
-    
 
-    const handleSubmit = async () => {
-        if (user.fullname && user.age && user.email && user.password && user.phone && user.service) {
 
-            try {
-                const dataToValidate = { ...user, ...date };
-                await validationSchema.validate(dataToValidate, { abortEarly: false });
-                setErrors({});
-                // Proceed with form submission
-                console.log('Form data submitted:', user);
-                axios.post('http://localhost:3001/services/RegisterEmploye', user, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                }
 
-                )
-
-            } catch (err) {
-                const newErrors = {};
-                err.inner.forEach((error) => {
-                    newErrors[error.path] = error.message;
-                });
-                setErrors(newErrors);
-            }
-        } else {
-            setTouched({ ...touched, photo: true, email: true, fullname: true, phone: true, service: true, day: true, month: true, year: true, password: true });
-        }
-    };
 
     return (
-
+<motion.div 
+            className="grid grid-cols-1 gap-6"
+            initial={{ opacity: 0, x: -50 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 0.5 }}
+        >
         <div className="grid grid-cols-1 gap-6">
             <div className="">
 
-                    
-                <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
-                    <CalendarDays className="w-6 h-6 mr-2" />
+
+                <div className="flex bg-amber-50  items-center shadow-lg w-full gap-2 px-2 rounded-sm">
+                    <LucideIcons.CalendarDays className="w-6 h-6 mr-2" />
                     <div className="flex w-full gap-x-2">
                         <input
                             name="day"
@@ -205,7 +182,7 @@ export default function Form({setUser , user , setYupError}) {
                             }}
                             type="number"
                             placeholder="dd"
-                            className="py-2 w-full pr-5 outline-none"
+                            className="py-2 w-full outline-none"
                         />
                         <input
                             name="month"
@@ -215,7 +192,7 @@ export default function Form({setUser , user , setYupError}) {
                             }}
                             type="number"
                             placeholder="mm"
-                            className="py-2 w-full pr-5 outline-none"
+                            className="py-2 w-full outline-none"
                         />
                         <input
                             name="year"
@@ -225,7 +202,7 @@ export default function Form({setUser , user , setYupError}) {
                             }}
                             type="number"
                             placeholder="yy"
-                            className="py-2 w-full pr-5 outline-none"
+                            className="py-2 w-full outline-none"
                         />
                     </div>
                 </div>
@@ -239,60 +216,60 @@ export default function Form({setUser , user , setYupError}) {
 
 
 
-                <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
-                    <ImageDown className="w-6 h-6 mr-2" />
-                    <label htmlFor="photo" className="w-full  text-gray-500 py-2 rounded-md px-2  pr-5 outline-none"> {user.photo ? `"${user.photo.type}"` : 'Your image'} </label>
-                    <input
-                        id="photo"
-                        name="photo"
-                        onChange={handleFileChange}
-                        type="file"
-                        className="hidden w-full outline-none text-[#333333] file:bg-gray-400 file:text-white file:rounded-md file:px-4 file:py-2 hover:file:bg-gray-500 transition-all duration-150"
-                    />
+            <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
+                <LucideIcons.ImageDown className="w-6 h-6 mr-2" />
+                <label htmlFor="photo" className="w-full  text-gray-500 py-2 rounded-md px-2  pr-5 outline-none"> {user.photo ? `"${user.photo.type}"` : 'Your image'} </label>
+                <input
+                    id="photo"
+                    name="photo"
+                    onChange={handleFileChange}
+                    type="file"
+                    className="hidden w-full outline-none text-[#333333] file:bg-gray-400 file:text-white file:rounded-md file:px-4 file:py-2 hover:file:bg-gray-500 transition-all duration-150"
+                />
                 {/* {touched.photo && errors.photo && <p className="text-red-500 text-sm">{errors.photo}</p>} */}
-                </div>
-       
-
-
-    
-
-                <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
-                    <HandPlatter className="w-6 h-6 " />
-                    <Select
-                        onChange={handleSelectChange}
-                        options={services}
-                        formatOptionLabel={(service) => (
-                            <div className="flex items-center gap-3">
-                                <span>{service.label}</span> {service.icon}
-                            </div>
-                        )}
-                        className=" w-full outline-none"
-                        isSearchable
-                        styles={customStyles}
-                    />
-                </div>
-                {/* {touched.service && errors.service && <p className="text-red-500 text-sm">{errors.service}</p>} */}
-      
-
-
-
-                <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
-                    <Phone className="w-6 h-6" />
-                    <input
-                        type="tel"
-                        name="phone"
-                        onChange={handleChange}
-                        className="py-2 w-full pr-5 outline-none"
-                        placeholder="Your Phone Number..."
-                    />
-                </div>
-                {/* {touched.phone && errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>} */}
-        
+            </div>
 
 
 
 
 
-        </div>
+            <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
+                <LucideIcons.HandPlatter className="w-6 h-6 " />
+                <Select
+                    onChange={handleSelectChange}
+                    options={services}
+                    formatOptionLabel={(service) => (
+                        <div className="flex items-center gap-3">
+                            <span>{service.label}</span> {service.icon}
+                        </div>
+                    )}
+                    className=" w-full outline-none"
+                    isSearchable
+                    styles={customStyles}
+                />
+            </div>
+            {/* {touched.service && errors.service && <p className="text-red-500 text-sm">{errors.service}</p>} */}
+
+
+
+
+            <div className="flex bg-amber-50 items-center shadow-lg w-full gap-2 px-2 rounded-sm">
+                <LucideIcons.Phone className="w-6 h-6" />
+                <input
+                    type="tel"
+                    name="phone"
+                    onChange={handleChange}
+                    className="py-2 w-full pr-5 outline-none"
+                    placeholder="Your Phone Number..."
+                />
+            </div>
+            {/* {touched.phone && errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>} */}
+
+
+
+
+
+
+        </div></motion.div>
     );
 }

@@ -12,19 +12,18 @@ const iconsMap = {
 };
 
 export default function InfoProfile({ user, photo, avatar }) {
-    const [service, setService] = useState(null);
+    const [services, setServices] = useState([]);  // Store all matching services
     const iconsClass = "w-5 h-5 text-gray-700"; // Define the icon styling
 
     useEffect(() => {
-        if (!user || !user.service) return;
+        if (!user || !user.service || !Array.isArray(user.service)) return;
 
         axios.get('http://localhost:3001/services')
             .then((res) => {
                 if (res.data.status === "success" && Array.isArray(res.data.services)) {
-                    const foundService = res.data.services.find(s => s.title === user.service);
-                    if (foundService) {
-                        setService(foundService);
-                    }
+                    // Find services that match user's services (since user.service is an array)
+                    const foundServices = res.data.services.filter(s => user.service.includes(s.title));
+                    setServices(foundServices);
                 }
             })
             .catch((err) => console.log(err));
@@ -53,40 +52,47 @@ export default function InfoProfile({ user, photo, avatar }) {
                     <div className="flex gap-x-6">
                         <p className="text-[15px]">{user?.email}</p>
                     </div>
-
                 </div>
+
                 <div className="grid grid-cols-1 mt-4 justify-center sm:grid-cols-2 gap-x-10 gap-y-2 sm:gap-y-2 text-black">
                     {/* Left Column */}
                     <div className="flex items-center cursor-default hover:text-orange-500 justify-start gap-x-6  ">
                         <User className={iconsClass} />
                         <p>{user?.username}</p>
                     </div>
-                    {user?.role === "employe" &&
+                    {user?.role === "employee" &&
                         <div className="flex items-center cursor-default hover:text-orange-500 justify-start gap-x-6">
                             <Calendar className={iconsClass} />
                             <p>{user?.age} years old</p>
                         </div>}
 
                     {/* Right Column */}
-                    {user?.role === "employe" &&
+                    {user?.role === "employee" &&
                         <div className="flex items-center cursor-default hover:text-orange-500 justify-start gap-x-6 ">
                             <Phone className={iconsClass} />
                             <p className="break-words">{user?.phone}</p>
                         </div>
                     }
-                    {user?.role === "employe"
-                        &&
-                        <div className="flex items-center cursor-default hover:text-orange-500 justify-start gap-x-6">
-                            {service && iconsMap[service.icon] && React.createElement(iconsMap[service.icon], { className: iconsClass })}
-                            <p>{service?.title}</p>
+
+                    {/* Services */}
+                    {user?.role === "employee" && services.length > 0 && (
+                        <div className="col-span-2 cursor-default">
+                            <h1 className="text-start mb-2 font-bold text-[#333333]">Services : </h1>
+                            <div className="grid sm:grid-cols-4 grid-cols-2 gap-2 justify-center sm:justify-center">
+                            {services.map((service) => (
+                                <div 
+                                    key={service.title} 
+                                    className="flex items-center hover:text-orange-500 bg-gray-100 px-3 py-1 rounded-lg text-sm text-gray-800 shadow-sm"
+                                >
+                                    {iconsMap[service.icon] && React.createElement(iconsMap[service.icon], { className: "w-4 h-4 text-gray-600 mr-2" })}
+                                    <p>{service.title}</p>
+                                </div>
+                            ))}
                         </div>
-                    }
-
-
+                        </div>
+                        
+                    )}
                 </div>
-
-                {/* Email Section */}
-
             </div>
         </div>
     );

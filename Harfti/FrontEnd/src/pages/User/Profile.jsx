@@ -14,6 +14,7 @@ export default function Profile() {
     const [user, setUser] = useState({ service: [] });
     const [message, setMessage] = useState("");
     const [Edit, setEdit] = useState(false)
+    const [selectedServices, setSelectedServices] = useState([]);
     const [newInfos, setNewInfos] = useState({});
     // const [fullname, setnewFullname] = useState(user?.fullname);
     // const [newusername, setnewUsername] = useState(user?.username);
@@ -24,28 +25,40 @@ export default function Profile() {
 
     const [avatar, setAvatar] = useState(null);
     const [photo, setPhoto] = useState(null);
-
+    const [yupError, setYupError] = useState()
     const formData = new FormData();
     useEffect(() => {
-        if (userID) {
-            axios.post('http://127.0.0.1:3001/user/Profile', { userID })
-                .then((res) => {
-                    if (res.data.status === "success") {
-                        setUser(res.data.user)
-                        setMessage(res.data.message)
-                    } else {
-                        setMessage("user don't fonded")
-                    }
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        }
-        else {
-            navigate('/Register')
+        if (!userID) {
+            navigate('/Register');
+            return;
         }
 
-    }, [Update])
+        axios.post('http://127.0.0.1:3001/user/Profile', { userID })
+            .then((res) => {
+                if (res.data.status === "success") {
+                    // Ensure `service` is properly parsed if it's stored as a stringified array
+                    let userData = res.data.user;
+                    if (typeof userData.service === "string") {
+                        try {
+                            userData.service = JSON.parse(userData.service); // Convert to array
+                        } catch (error) {
+                            console.error("Error parsing services:", error);
+                            userData.service = []; // Fallback to empty array
+                        }
+                    }
+                    setUser(userData);
+                    setMessage(res.data.message);
+                } else {
+                    setMessage("User not found");
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching profile:", error);
+            });
+
+    }, [userID]); // Dependency array only includes userID
+
+
 
     function Logout() {
         Swal.fire({
@@ -59,7 +72,7 @@ export default function Profile() {
         }).then((res) => {
             if (res.isConfirmed) {
                 sessionStorage.removeItem("userID")
-
+                sessionStorage.removeItem('role')
                 navigate('/Register')
             }
         })
@@ -67,46 +80,51 @@ export default function Profile() {
     }
 
     async function Update() {
+        if (yupError && Object.keys(yupError).length > 0) {
+            let errorMessages = Object.values(yupError).join("<br>"); // Convert errors to string
+
+            Swal.fire({
+                title: "Validation Errors",
+                html: errorMessages, // Display errors with line breaks
+                icon: "error",
+                confirmButtonColor: "#d33",
+            });
+
+            return; // Stop execution if validation errors exist
+        }
+
         try {
-            // Add photo in formData if avatar or photo is selected
-            if (avatar) {
-                formData.append("photo", avatar);
-            }
-            if (photo) {
-                formData.append("photo", photo);
-            }
-            if (userID) {
-                formData.append("userID", userID);
-            }
+            const formData = new FormData();
 
-            // Loop to append other information
-            for (const [key, value] of Object.entries(newInfos)) {
+            if (avatar) formData.append("photo", avatar);
+            if (photo) formData.append("photo", photo);
+            if (userID) formData.append("userID", userID);
+
+            const serviceLabels = selectedServices.map((s) => s.label);
+            formData.append("service", JSON.stringify(serviceLabels));
+
+            Object.entries(newInfos).forEach(([key, value]) => {
                 formData.append(key, value);
-            }
+            });
 
-            // Send the request to update user profile
-            await axios.put('http://127.0.0.1:3001/user/Profile/Update', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            })
-                .then((res) => {
-                    if (res.data.status === "success") {
-                        toast.success(res.data.message);
-                        setEdit(false);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1000);
-                        
-                    } else {
-                        toast.error(res.data.message);
-                    }
-                })
+            console.log("FormData being sent:", Object.fromEntries(formData));
+
+            axios.put("http://127.0.0.1:3001/user/Profile/Update", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            }).then((res) => {
+                if (res.data.status === "success") {
+                    toast.success(res.data.message);
+                } else {
+                    toast.error(res.data.message);
+                }
+                setEdit(false);
+                setTimeout(() => window.location.reload(), 1000);
+            });
+        } catch (error) {
+            console.error(error);
         }
-        catch (error) {
-            console.log(error);
-        }
-
-
     }
+
 
 
     return (
@@ -117,13 +135,13 @@ export default function Profile() {
                     <LogOut className="text-red-600 w-9 h-9 bg-red-400 rounded-[50%]  p-1.5 hover:text-red-400  hover:bg-red-700  " onClick={Logout} />
                 </div>
 
-                {!Edit ? <InfoProfile user={user} avatar={avatar} photo={photo} /> : <InputProfile setAvatar={setAvatar} avatar={avatar} photo={photo} setPhoto={setPhoto} newInfos={newInfos} setNewInfos={setNewInfos} user={user} />}
+                {!Edit ? <InfoProfile user={user} avatar={avatar} photo={photo} /> : <InputProfile setYupError={setYupError} setSelectedServices={setSelectedServices} selectedServices={selectedServices} setAvatar={setAvatar} avatar={avatar} photo={photo} setPhoto={setPhoto} newInfos={newInfos} setNewInfos={setNewInfos} user={user} />}
 
 
 
                 <div className="flex gap-x-4 mt-5 " >
                     {Edit ?
-                        <button onClick={() => { setEdit(false), setAvatar('') }} className="bg-[#333333] hover:bg-[#2e2d2d] flex hover:font-bold duration-200 ease-in-out py-1 px-2.5 text-lg rounded-sm mt-2 text-white">Back</button>
+                        <button onClick={() => { setEdit(false), setAvatar(''), window.location.reload() }} className="bg-[#333333] hover:bg-[#2e2d2d] flex hover:font-bold duration-200 ease-in-out py-1 px-2.5 text-lg rounded-sm mt-2 text-white">Back</button>
                         :
                         ""}
                     {!Edit ?

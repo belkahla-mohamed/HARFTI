@@ -13,11 +13,11 @@ import Form from "./to job/form";
 import Swal from "sweetalert2";
 
 export default function Register() {
-    
+
     const navigate = useNavigate();
-    useEffect(()=>{
+    useEffect(() => {
         const userID = sessionStorage.getItem('userID')
-        if(userID){
+        if (userID) {
             navigate('/profile')
         }
     })
@@ -31,19 +31,19 @@ export default function Register() {
         username: '',
         age: '',
         photo: 'default.png',
-        service: '',
         email: '',
         phone: '',
         password: '',
-        role:role,
+        role: role,
     });
     const [Success, setSuccess] = useState();
     const [Error, setError] = useState();
     const [registerErrors, setRegisterErrors] = useState({}); // Track registration form errors
     const [loginErrors, setLoginErrors] = useState({}); // Track login form errors
-    const [yupError , setYupError] = useState();
+    const [yupError, setYupError] = useState();
 
     const formData = new FormData();
+    const [selectedServices, setSelectedServices] = useState([]);
 
     const [auth, setAuth] = useState({
         email: '',
@@ -102,9 +102,17 @@ export default function Register() {
             // Validate the user data against the schema
             await registerSchema.validate(user, { abortEarly: false });
 
-            Object.keys(user).forEach((key) => {
-                formData.append(key, user[key]);
-            });
+
+            for (const [key, value] of Object.entries(user)) {
+                formData.append(key, value);
+            }
+
+            if (selectedServices.length > 0) {
+                selectedServices.forEach(service => {
+                    formData.append("service[]", service); // Append each service separately
+                });
+            }            
+            
 
             const res = await axios.post('http://localhost:3001/auth/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
@@ -115,10 +123,10 @@ export default function Register() {
                 setError(res.data.message);
             }
         } catch (err) {
-            
+
             if (err instanceof Yup.ValidationError) {
-                
-                
+
+
                 // Handle validation errors
                 const errors = {};
                 err.inner.forEach((e) => {
@@ -128,7 +136,7 @@ export default function Register() {
 
 
                 // Collect all error messages into a single string
-                
+
                 /* Object.keys(yupError).forEach((e) => {
                     errors[e.path] = e.message;
                 }); */
@@ -139,7 +147,7 @@ export default function Register() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Validation Error',
-                    html:  errorMessages , // Use HTML to display line breaks
+                    html: errorMessages, // Use HTML to display line breaks
                 });
             } else {
                 console.log(err);
@@ -151,22 +159,22 @@ export default function Register() {
         try {
             // Validate the auth data against the schema
             await loginSchema.validate(auth, { abortEarly: false });
-    
+
             const res = await axios.post('http://localhost:3001/auth/login', auth);
-            
+
             if (res.data.status === "success") {
                 setSuccess(res.data.message);
                 sessionStorage.setItem("userID", JSON.stringify(res.data.user._id));
                 sessionStorage.setItem("role", JSON.stringify(res.data.user.role));
                 navigate('/');
                 window.location.reload();
-                
+
             } else {
                 setError(res.data.message);
                 Swal.fire({
-                    icon:'error',
-                    title:'Oops...',
-                    html:res.data.message
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: res.data.message
                 })
             }
         } catch (err) {
@@ -177,10 +185,10 @@ export default function Register() {
                     errors[e.path] = e.message;
                 });
                 setLoginErrors(errors);
-    
+
                 // Collect all error messages into a single string
                 const errorMessages = Object.values(errors).join('<br>');
-    
+
                 // Display all errors in a Swal modal
                 Swal.fire({
                     icon: 'error',
@@ -207,7 +215,7 @@ export default function Register() {
     }, [Success, Error]);
 
 
-console.log(yupError);
+    
     return (
         <div className="min-h-screen sm:pt-0 pt-5 flex justify-center items-center">
             {/* Register Section */}
@@ -219,18 +227,18 @@ console.log(yupError);
                             <div className={`${role === 'user' ? "" : 'grid sm:grid-cols-2 sm:gap-6 gap-6 '}`}>
                                 <div className="grid grid-cols-1 gap-6 ">
                                     <InputField Icon={MdOutlineDriveFileRenameOutline} type="text" onChange={(e) => { setUser({ ...user, fullname: e.target.value }); validateRegisterField('fullname', e.target.value); }} placeholder="Fullname" />
-                                    
+
                                     <InputField Icon={FaUserEdit} type="text" onChange={(e) => { setUser({ ...user, username: e.target.value }); validateRegisterField('username', e.target.value); }} placeholder="User Name" />
-                                    
+
                                     <InputField Icon={MdOutlineAlternateEmail} type="email" onChange={(e) => { setUser({ ...user, email: e.target.value }); validateRegisterField('email', e.target.value); }} placeholder="Email" />
-                                    
+
                                     <InputField Icon={PiPassword} type="password" onChange={(e) => { setUser({ ...user, password: e.target.value }); validateRegisterField('password', e.target.value); }} placeholder="Password" />
-                                    
-                                    <div className={`${role === 'user' ? "w-full  flex items-center space-x-2 " : 'hidden'}`}> <input type="checkbox" name="" id="role" className="h-4 w-4" value='employee' onChange={(e) => {setRole(e.target.value) ;  setUser({...user , role:e.target.value})} } /><label htmlFor="role" className="" > Do you want to be an <span className="">employee ?</span>  </label>
+
+                                    <div className={`${role === 'user' ? "w-full  flex items-center space-x-2 " : 'hidden'}`}> <input type="checkbox" name="" id="role" className="h-4 w-4" value='employee' onChange={(e) => { setRole(e.target.value); setUser({ ...user, role: e.target.value }) }} /><label htmlFor="role" className="" > Do you want to be an <span className="">employee ?</span>  </label>
                                     </div>
-                                    
+
                                 </div>
-                                {role === 'employee' ? <Form setUser={setUser} setYupError={setYupError} user={user} /> : ''}
+                                {role === 'employee' ? <Form setSelectedServices={setSelectedServices} selectedServices={selectedServices} setUser={setUser} setYupError={setYupError} user={user} /> : ''}
                             </div>
                             <button type="submit" onClick={Add} className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Register</button>
                         </div>
@@ -246,11 +254,11 @@ console.log(yupError);
                     <div className="flex w-full max-w-[300px] justify-center items-center gap-8 flex-col">
                         <h1 className="font-extrabold text-[#333333] text-4xl">Login</h1>
                         <InputField Icon={FaUserEdit} type="text" placeholder="User Name or Email " onChange={(e) => { setAuth({ ...auth, email: e.target.value }); validateLoginField('email', e.target.value); }} />
-                        
+
                         <InputField Icon={PiPassword} type="password" placeholder="Password" onChange={(e) => { setAuth({ ...auth, password: e.target.value }); validateLoginField('password', e.target.value); }} />
-                        
+
                         <button type="submit" onClick={Login} className="w-full py-2 bg-[#333333] text-white text-xl rounded-md hover:bg-[#1f1e1e]">Login</button>
-                        
+
                     </div>
                     <MobileSwitch text="Register" subtext="Don't have an account already?" onClick={() => setActive(false)} />
                 </div>
