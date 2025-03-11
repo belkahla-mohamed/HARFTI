@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake, User, ArrowBigLeft, ArrowRight, LogOut, CirclePlus } from 'lucide-react';
+import { UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake, User, ArrowBigLeft, ArrowRight, LogOut, CirclePlus, Plus } from 'lucide-react';
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -219,29 +219,29 @@ export default function Navbar() {
 
           <ul className=" w-full flex items-center justify-between">
             <li>
-              <Link to="/"><House className={`${location.pathname === "/" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
+              <Link to="/"><House className={`${location.pathname === "/" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-9 h-9 cursor-pointer`} /></Link>
             </li>
             <li>
-              <Link to="/Services"><Handshake className={`${location.pathname === "/Services" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
+              <Link to="/Services"><Handshake className={`${location.pathname === "/Services" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-9 h-9 cursor-pointer`} /></Link>
             </li>
-            {role === "employe" &&
+            {role === "employee" &&
               <li>
-                <Link to="/AddPost"><CirclePlus className={`${location.pathname === "/AddPost" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-[50px] h-[50px] cursor-pointer`} /></Link>
+                <Link to="/AddPost"><Plus className={`${location.pathname === "/AddPost" ? "text-white" : 'text-[#333333]'} rounded-[50%] bg-amber-600 hover:text-blue-950 w-10 h-10 cursor-pointer`} /></Link>
               </li>}
 
             <li>
-              <Link to="/Worker" ><Briefcase className={`${location.pathname === "/Worker" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-8 h-8 cursor-pointer`} /></Link>
+              <Link to="/Worker" ><Briefcase className={`${location.pathname === "/Worker" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-9 h-9 cursor-pointer`} /></Link>
             </li>
             {userID ? (
 
               <li>
                 {user && user.photo ? (
                   <Link to="/Profile">
-                    <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className={`w-8 h-8 border-2 rounded-2xl  ${location.pathname === "/Profile" ? "border-white" : 'border-[#333333]'}`} />
+                    <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className={`w-9 h-9 border-2 rounded-[50%]  ${location.pathname === "/Profile" ? "border-white" : 'border-[#333333]'}`} />
                   </Link>
                 ) : (
                   <Link to="/Profile">
-                    <CircleUserRound className={`hover:text-blue-950 w-8 h-8 cursor-pointer ${location.pathname === "/Profile" ? "text-white" : 'text-[#333333]'} `} />
+                    <CircleUserRound className={`hover:text-blue-950 w-9 h-9 cursor-pointer ${location.pathname === "/Profile" ? "text-white" : 'text-[#333333]'} `} />
                   </Link>
                 )}</li>
 
@@ -249,7 +249,7 @@ export default function Navbar() {
             ) : (
               <li>
                 <Link to="/Register">
-                  <UserPlus className={`hover:text-blue-950 w-8 h-8 cursor-pointer ${location.pathname === "/Register" ? "text-white" : 'text-[#333333]'} `} />
+                  <UserPlus className={`hover:text-blue-950 w-9 h-9 cursor-pointer ${location.pathname === "/Register" ? "text-white" : 'text-[#333333]'} `} />
                 </Link>
 
               </li>)}

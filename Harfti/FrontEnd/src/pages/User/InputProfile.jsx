@@ -6,17 +6,17 @@ import SelectCombobox from "../combobox/SelectCombobox";
 
 // **Yup Schema Validation**
 const validationSchema = Yup.object({
-    fullname: Yup.string().required("Fullname is required"),
-    username: Yup.string().required("Username is required"),
+    fullname: Yup.string(),
+    username: Yup.string(),
     age: Yup.number()
         .positive("Age must be positive")
         .integer("Age must be an integer"),
     phone: Yup.string()
         .matches(/^\d+$/, "Phone must contain only numbers")
-        .required("Phone is required"),
-    email: Yup.string().email("Invalid email format").required("Email is required"),
-    oldPass: Yup.string().min(6, "Old Password must be at least 6 characters").notRequired(),
-    newPass: Yup.string().min(6, "New Password must be at least 6 characters").notRequired(),
+        ,
+    email: Yup.string().email("Invalid email format"),
+    oldPass:  Yup.string().min(6, 'Password must be at least 6 characters').required('Your Password is required'),
+    newPass:  Yup.string().min(6, 'Password must be at least 6 characters'),
 });
 
 export default function InputProfile({ setYupError, selectedServices, setSelectedServices, newInfos, setNewInfos, user, setAvatar, avatar, setPhoto, photo }) {

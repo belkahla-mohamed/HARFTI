@@ -54,12 +54,14 @@ export default function InfoProfile({ user, photo, avatar }) {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 mt-4 justify-center sm:grid-cols-2 gap-x-10 gap-y-2 sm:gap-y-2 text-black">
+                <div className="block sm:grid  sm:grid-cols-2 mt-4 gap-y-2 text-black">
+                    
                     {/* Left Column */}
                     <div className="flex items-center cursor-default hover:text-orange-500 justify-start gap-x-6  ">
                         <User className={iconsClass} />
                         <p>{user?.username}</p>
                     </div>
+
                     {user?.role === "employee" &&
                         <div className="flex items-center cursor-default hover:text-orange-500 justify-start gap-x-6">
                             <Calendar className={iconsClass} />
@@ -82,9 +84,9 @@ export default function InfoProfile({ user, photo, avatar }) {
                             {services.map((service) => (
                                 <div 
                                     key={service.title} 
-                                    className="flex items-center hover:text-orange-500 bg-gray-100 px-3 py-1 rounded-lg text-sm text-gray-800 shadow-sm"
+                                    className="flex items-center hover:text-orange-500 bg-gray-100 px-2 py-1 rounded-lg text-sm text-gray-800 shadow-sm"
                                 >
-                                    {iconsMap[service.icon] && React.createElement(iconsMap[service.icon], { className: "w-4 h-4 text-gray-600 mr-2" })}
+                                    {iconsMap[service.icon] && React.createElement(iconsMap[service.icon], { className: "w-5 h-5 text-gray-600 mr-2" })}
                                     <p>{service.title}</p>
                                 </div>
                             ))}
