@@ -95,7 +95,7 @@ export default function ImageSlider({ images }) {
                     <p className="text-white text-2xl sm:text-5xl font-bold">Welcome <span className="text-white hover:text-orange-500 transition-colors ease-in-out">{user?.username}</span></p>
                   </div>
 
-                  <p className="text-white text-sm sm:text-2xl mt-2">
+                  <p className="text-white text-sm sm:text-2xl mt-2 ">
                     Need a professional? <br /> Browse services and find the perfect expert for the job!
                   </p>
 

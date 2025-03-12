@@ -16,6 +16,8 @@ import Online from "./pages/payment/Online";
 import Worker from "./pages/job/Worker";
 import Form from "./pages/User/to job/form";
 import NotFound from "./404/notFound";
+import AddPost from "./pages/posts/AddPost";
+import Posts from "./pages/posts/Posts";
 
 
 export default function App() {
@@ -46,6 +48,8 @@ export default function App() {
                         <Route path="/Worker" element={<Worker />} />
                         <Route path="/Services/:service" element={<EmployeesService />} />
                         <Route path="/ToWorker" element={<Form />} />
+                        <Route path="/Posts/AddPost" element={<AddPost/>}/>
+                        <Route path="/Posts" element={<Posts/>}/>
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

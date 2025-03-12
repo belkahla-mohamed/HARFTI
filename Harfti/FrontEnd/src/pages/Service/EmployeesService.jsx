@@ -2,8 +2,30 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Phone } from 'lucide-react';
+
+import { 
+    Package, ShowerHead, PaintRoller, Wrench, BrickWall, Sprout, 
+    Axe, Anvil, Gem, ScissorsLineDashed, Palette, Briefcase, Flame,
+    Phone
+} from "lucide-react";
 import gsap from "gsap";
+
+// Define a mapping of services to icons
+const serviceIcons = {
+    "Delivery Person": Package,
+    "Plumber": ShowerHead,
+    "Painter": PaintRoller,
+    "Mechanic": Wrench,
+    "Builder": BrickWall,
+    "Gardener": Sprout,
+    "Carpenter": Axe,
+    "Blacksmith": Anvil,
+    "Goldsmith": Gem,
+    "Tailor": ScissorsLineDashed,
+    "Craftsperson": Palette,
+    "Leatherworker": Briefcase,
+    "Welder": Flame
+};
 
 export default function EmployeesService() {
     const [employees, setEmployees] = useState([]);
@@ -56,6 +78,18 @@ export default function EmployeesService() {
                 transition={{ duration: 0.9 }}
             >
                 {employees.map((employee) => {
+
+                    // Ensure worker.service is an array
+                    let services = employee.service;
+                    if (typeof services === "string") {
+                        try {
+                            services = JSON.parse(services); // Convert to array
+                        } catch (error) {
+                            console.error("Error parsing services:", error);
+                            services = []; // Fallback to empty array
+                        }
+                    }
+
                     const folder = employee?.photo?.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
 
                     const imageSource = employee && employee.photo
@@ -79,10 +113,22 @@ export default function EmployeesService() {
                             />
                             <div className="  text-center">
                                 <p className="text-xl font-bold "> {employee.fullname}</p>
-                                <p className="text-lg text-[#333333]"> {employee.service}</p>
                                 <p className="text-sm text-[#333333]">{employee?.phone || "N/A"}</p>
                                 <p className="text-sm text-[#333333]">{employee.age} years old</p>
                             </div>
+
+                            {/* Display Services */}
+                            <div className="flex flex-wrap justify-center gap-2 mt-1">
+                                {(Array.isArray(services) ? services : []).map((service, index) => (
+                                    service && (
+                                        <span key={index} className="flex items-center bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-sm">
+                                            {serviceIcons[service] && React.createElement(serviceIcons[service], { className: "w-4 h-4 mr-1" })}
+                                            {service}
+                                        </span>
+                                    )
+                                ))}
+                            </div>
+
                             <div className="w-full flex justify-center">
                                 <Link to="/location">
                                     <button

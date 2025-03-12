@@ -6,7 +6,7 @@ const serviceRoutes = require('./routes/serviceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
 const userRoutes = require('./routes/userRoutes');
 const paymentRoutes = require('./routes/payment');
-
+const postRoutes = require('./routes/postEmployee');
 const reservationRoutes = require('./routes/reservationRoutes');
 
 const app = express();
@@ -24,7 +24,7 @@ app.use('/', serviceRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/services', employeeRoutes);
 app.use('/user',userRoutes);
-
+app.use('/post',postRoutes);
 app.use('/reservations', reservationRoutes); 
 
 // Serve Static Uploads
@@ -32,6 +32,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/reservationImgs', express.static('reservationImgs'));
 app.use('/EmployeePhotos', express.static('EmployeePhotos'));
 app.use('/servicesPhotos', express.static('servicesPhotos'));
+app.use('/PostPhoto', express.static('PostPhoto'));
 // Start Server
 app.listen(3001, () => {
     console.log('Server is running on port 3001');

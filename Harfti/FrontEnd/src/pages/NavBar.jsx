@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake, User, ArrowBigLeft, ArrowRight, LogOut, CirclePlus, Plus } from 'lucide-react';
+import { UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake, User, ArrowRight, LogOut, TvMinimalPlay,  ListVideo } from 'lucide-react';
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -106,7 +106,7 @@ export default function Navbar() {
 
         <div className={`${role === "employee" ? "w-[10%] flex items-center justify-between" : "w-[5%]"}`}>
 
-          {role === "employee" ? <CirclePlus className="hidden sm:block stroke-1 w-[55px] h-[55px] text-white" /> : ""}
+          {role === "employee" ? <Link to="/Posts"><TvMinimalPlay className={`hidden sm:block stroke-1 w-[55px] h-[55px] ${location.pathname === "/Posts" ? "text-orange-500" : "text-white"}`} /></Link> : ""}
           <div>
             {userID ? (
               <button onMouseEnter={() => setShow(true)} onClick={() => setShow(!show)} className="relative sm:block hidden">
@@ -226,7 +226,7 @@ export default function Navbar() {
             </li>
             {role === "employee" &&
               <li>
-                <Link to="/AddPost"><Plus className={`${location.pathname === "/AddPost" ? "text-white" : 'text-[#333333]'} rounded-[50%] bg-amber-600 hover:text-blue-950 w-10 h-10 cursor-pointer`} /></Link>
+                <Link to="/Posts"><ListVideo className={`${location.pathname === "/Posts" ? "text-white" : 'text-[#333333]'}  hover:text-blue-950 w-10 h-10 cursor-pointer`} /></Link>
               </li>}
 
             <li>
