@@ -104,9 +104,9 @@ export default function Navbar() {
         <Link to='/'><img src="/logo/logo.png" className="w-32 h-[90px]" /></Link>
 
 
-        <div className={`${role === "employee" ? "w-[10%] flex items-center justify-between" : "w-[5%]"}`}>
+        <div className="w-[10%] flex items-center justify-between">
 
-          {role === "employee" ? <Link to="/Posts"><TvMinimalPlay className={`hidden sm:block stroke-1 w-[55px] h-[55px] ${location.pathname === "/Posts" ? "text-orange-500" : "text-white"}`} /></Link> : ""}
+          <Link to="/Posts"><TvMinimalPlay className={`hidden sm:block stroke-1 w-[55px] h-[55px] ${location.pathname === "/Posts" ? "text-orange-500" : "text-white"}`} /></Link>
           <div>
             {userID ? (
               <button onMouseEnter={() => setShow(true)} onClick={() => setShow(!show)} className="relative sm:block hidden">
@@ -224,11 +224,9 @@ export default function Navbar() {
             <li>
               <Link to="/Services"><Handshake className={`${location.pathname === "/Services" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-9 h-9 cursor-pointer`} /></Link>
             </li>
-            {role === "employee" &&
-              <li>
-                <Link to="/Posts"><ListVideo className={`${location.pathname === "/Posts" ? "text-white" : 'text-[#333333]'}  hover:text-blue-950 w-10 h-10 cursor-pointer`} /></Link>
-              </li>}
-
+            <li>
+              <Link to="/Posts"><ListVideo className={`${location.pathname === "/Posts" ? "text-white" : 'text-[#333333]'}  hover:text-blue-950 w-10 h-10 cursor-pointer`} /></Link>
+            </li>
             <li>
               <Link to="/Worker" ><Briefcase className={`${location.pathname === "/Worker" ? "text-white" : 'text-[#333333]'} hover:text-blue-950 w-9 h-9 cursor-pointer`} /></Link>
             </li>

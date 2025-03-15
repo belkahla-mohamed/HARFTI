@@ -189,15 +189,17 @@ export default function Posts() {
 
 
             </div>
+            {users?.find((user) => user._id === userID)?.role === "employee" &&
+                <div className="fixed sm:z-0 z-50 right-0 sm:translate-x-29 translate-x-25 w-full cursor-pointer">
+                    <Link className="flex justify-end" to={"/Posts/AddPost"}>
+                        <div className="flex items-center rounded-2xl shadow-[0px_0px_5px_gray] text-[#333333] gap-x-2 px-2 py-1 bg-orange-400 border-2 border-orange-400 ease-in-out hover:-translate-x-28 sm:hover:-translate-x-32 transition-all">
+                            <CopyPlus className="sm:w-15 sm:h-15 w-7 h-7" />
+                            <p className="sm:text-2xl text-xl font-bold">Add Post</p>
+                        </div>
+                    </Link>
+                </div>
+            }
 
-            <div className="fixed sm:z-0 z-50 right-0 sm:translate-x-29 translate-x-25 w-full cursor-pointer">
-                <Link className="flex justify-end" to={"/Posts/AddPost"}>
-                    <div className="flex items-center rounded-2xl shadow-[0px_0px_5px_gray] text-[#333333] gap-x-2 px-2 py-1 bg-orange-400 border-2 border-orange-400 ease-in-out hover:-translate-x-28 sm:hover:-translate-x-32 transition-all">
-                        <CopyPlus className="sm:w-15 sm:h-15 w-7 h-7" />
-                        <p className="sm:text-2xl text-xl font-bold">Add Post</p>
-                    </div>
-                </Link>
-            </div>
 
             <div className="w-full max-w-4xl mx-auto grid justify-center gap-6">
                 {posts.length ? (
