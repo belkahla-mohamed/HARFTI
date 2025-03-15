@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer({ scrollTopHome }) {
     return (
-        <div className="flex w-full bg-[#333333] text-orange-400 flex-col mt-20 px-5 sm:px-28 2xl:px-38 pt-10 pb-4  h-full select-none">
+        <div className="flex relative w-full bg-[#333333] text-orange-400 flex-col mt-20 px-5 sm:px-28 2xl:px-38 pt-10 pb-4  h-full select-none">
 
             <div className="w-full flex-wrap flex justify-start sm:justify-center gap-5 sm:gap-8 2xl:gap-15 items-center  ">
 

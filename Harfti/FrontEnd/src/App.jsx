@@ -18,6 +18,7 @@ import Form from "./pages/User/to job/form";
 import NotFound from "./404/notFound";
 import AddPost from "./pages/posts/AddPost";
 import Posts from "./pages/posts/Posts";
+import ProfileEmployee from "./pages/posts/profileEmployee";
 
 
 export default function App() {
@@ -50,6 +51,7 @@ export default function App() {
                         <Route path="/ToWorker" element={<Form />} />
                         <Route path="/Posts/AddPost" element={<AddPost/>}/>
                         <Route path="/Posts" element={<Posts/>}/>
+                        <Route path="/Posts/ProfileEmployee/:username" element={<ProfileEmployee/>}/>
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

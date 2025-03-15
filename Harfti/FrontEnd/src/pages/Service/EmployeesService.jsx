@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { 
     Package, ShowerHead, PaintRoller, Wrench, BrickWall, Sprout, 
     Axe, Anvil, Gem, ScissorsLineDashed, Palette, Briefcase, Flame,
-    Phone
+    Phone,
+    PhoneCall
 } from "lucide-react";
 import gsap from "gsap";
 
@@ -30,6 +31,7 @@ const serviceIcons = {
 export default function EmployeesService() {
     const [employees, setEmployees] = useState([]);
     const [message, setMessage] = useState();
+    const [Index, setIndex] = useState(null);
     const params = useParams()
     const { service } = params;
 
@@ -77,7 +79,7 @@ export default function EmployeesService() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.9 }}
             >
-                {employees.map((employee) => {
+                {employees.map((employee, index) => {
 
                     // Ensure worker.service is an array
                     let services = employee.service;
@@ -131,10 +133,10 @@ export default function EmployeesService() {
 
                             <div className="w-full flex justify-center">
                                 <Link to="/location">
-                                    <button
+                                    <button onMouseEnter={() => setIndex(index)} onMouseLeave={() => setIndex(null)}
                                         className="flex bg-orange-500 hover:bg-orange-600 ease-in-out duration-100 p-2 rounded font-bold text-white gap-2 cursor-pointer"
                                     >
-                                        <Phone /> Contact Now
+                                        {Index === index ? <PhoneCall/> : <Phone />} Contact Now
                                     </button>
                                 </Link>
 

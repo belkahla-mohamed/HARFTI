@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import 'animate.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Afficher from "./Posts";
+import { toast } from "react-toastify";
+
 
 export default function AddPost() {
     const formData = new FormData();
@@ -16,9 +17,13 @@ export default function AddPost() {
         if (role !== "employee") {
             navigate('/')
         }
+        window.scrollTo({top:0})
     }, [])
 
     const Add = async () => {
+        if(!post.description && !post.photo){
+            toast.error("The photo and description is required")
+        }
         for (const [key, value] of Object.entries(post)) {
             formData.append(key, value)
         }
@@ -26,7 +31,16 @@ export default function AddPost() {
         if (userId) {
             formData.append('userID', userId);
             try {
-                await axios.post('http://127.0.0.1:3001/post/PostEmployee', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                await axios.post('http://127.0.0.1:3001/post/PostEmployee', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                    .then((res) => {
+                        if (res.data.status === "success") {
+                            toast.success(res.data.message);
+                            navigate("/Posts")
+                        } else {
+                            toast.error(res.data.message);
+                        }
+                    })
+
             }
             catch (error) {
                 console.log(error)

@@ -26,7 +26,11 @@ export default function Profile() {
     const [avatar, setAvatar] = useState(null);
     const [photo, setPhoto] = useState(null);
     const [yupError, setYupError] = useState()
-    const formData = new FormData();
+    
+    useEffect(()=> {
+        window.scrollTo({top:0})
+    })
+
     useEffect(() => {
         if (!userID) {
             navigate('/Register');

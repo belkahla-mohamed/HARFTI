@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake, User, ArrowRight, LogOut, TvMinimalPlay,  ListVideo } from 'lucide-react';
+import { UserPlus, House, Facebook, Briefcase, Instagram, Phone, Twitter, Menu, CircleX, CircleUserRound, Handshake, User, ArrowRight, LogOut, TvMinimalPlay, ListVideo } from 'lucide-react';
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -81,9 +81,9 @@ export default function Navbar() {
   const folder = user && user.photo.startsWith('avatar') ? 'uploads' : 'EmployeePhotos'
 
   return (
-    <div>
+    <div className="relative z-50">
       <ToastContainer />
-      <div className="w-full flex  justify-center sm:space-x-20 space-x-10 p-2">
+      <div className="w-full flex relative bg-gray-200 justify-center sm:space-x-20 space-x-10 p-2">
 
         <div ref={(el) => (boxRefs.current[0] = el)} className="border border-4 border-blue-800 rounded-4xl p-2 cursor-pointer">
           <Facebook className="stroke-3 text-blue-800" />

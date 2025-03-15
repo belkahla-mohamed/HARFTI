@@ -7,6 +7,15 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 
+router.get('/users', async (req, res) => {
+  const users = await usersCollection.find().lean();
+  if(users){
+    res.json({status : "success", message : "users founded", users})
+  }else{
+    res.json({status : "error", message : "users not founded"})
+  }
+})
+
 // Get user profile by user ID
 router.post("/Profile", async (req, res) => {
   const { userID } = req.body;
