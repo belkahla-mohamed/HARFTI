@@ -108,5 +108,55 @@
         "photo": "avatar (10).png",
         "password": "aze@123",
         "role": "employee"
+    },
+    {
+        "fullname": "Sara Amrani",
+        "username": "sara_admin",
+        "age": 30,
+        "phone": "+212612345678",
+        "email": "sara.amrani@admin.com",
+        "photo": "avatar (2).png",
+        "password": "Admin@456",
+        "role": "admin"
+    },
+    {
+        "fullname": "Yassine El Fadili",
+        "username": "yassine_admin",
+        "age": 35,
+        "phone": "+212698745632",
+        "email": "yassine.elfadili@admin.com",
+        "photo": "avatar (3).png",
+        "password": "SecurePass!789",
+        "role": "admin"
+    },
+    {
+        "fullname": "Nadia Bensalah",
+        "username": "nadia_admin",
+        "age": 28,
+        "phone": "+212678954321",
+        "email": "nadia.bensalah@admin.com",
+        "photo": "avatar (4).png",
+        "password": "StrongPass#2024",
+        "role": "admin"
+    },
+    {
+        "fullname": "Omar Chafiq",
+        "username": "omar_admin",
+        "age": 40,
+        "phone": "+212665478932",
+        "email": "omar.chafiq@admin.com",
+        "photo": "avatar (5).png",
+        "password": "OmarSecure!001",
+        "role": "admin"
+    },
+    {
+        "fullname": "Khadija Laouini",
+        "username": "khadija_admin",
+        "age": 32,
+        "phone": "+212655443322",
+        "email": "khadija.laouini@admin.com",
+        "photo": "avatar (6).png",
+        "password": "AdminPower@567",
+        "role": "admin"
     }
 ]

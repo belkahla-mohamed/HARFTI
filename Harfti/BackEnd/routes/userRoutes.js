@@ -113,4 +113,60 @@ router.put("/Profile/Update", upload.single("photo"), async (req, res) => {
 });
 
 
+
+/* admin */
+router.post('/dashUser' ,async (req,res)=>{
+  try {
+    const users = await usersCollection.find().lean()
+    if(users){
+      res.send({status : 'success' , message:'users finded ' , users:users})
+    }else{
+      res.send({status: 'error' , message : 'users dont finded ' })
+    }
+  }
+  catch (error) {
+    res.send({ status: "error", message: "error in server", error });
+  }
+})
+
+router.post('/dashUser/supp', async (req, res) => {
+  try {
+    const {username} =req.body
+    if(username){
+      let  supp = await usersCollection.deleteOne({username:username});
+
+      if(supp){
+        res.send({ status: "success", message: "user deleted" });
+      }
+    }
+    
+  } catch (error) {
+    console.error(error);
+    res.send({ status: 'error', message: 'Error in server', error });
+  }
+});
+
+router.post('/dashUser/show' , async (req,res)=>{
+  try{   
+    const {id} = req.body;
+    console.log(id)
+    const user = await usersCollection.findOne({_id:new ObjectId(id)});
+    console.log(user)
+      if(user){
+        res.send({ status: "success", message: "user finded" , user });
+        console.log(user)
+      }else{
+        res.send({ status: "error", message: "user dont finded"});
+      }
+
+  
+    }catch (error) {
+    console.error(error);
+    res.send({ status: 'error', message: 'Error in server', error });
+  }
+})
+
+
+
+
 module.exports = router;
