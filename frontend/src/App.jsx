@@ -1,5 +1,3 @@
-
-
 import Navbar from "./pages/NavBar";
 import Home from "./pages/Home/Home";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -15,7 +13,7 @@ import Cash from "./pages/payment/Cash";
 import Online from "./pages/payment/Online";
 import Worker from "./pages/job/Worker";
 import Form from "./pages/User/to job/form";
-import NotFound from "./404/notFound";
+import NotFound from "./notFound/NotFound";
 import AddPost from "./pages/posts/AddPost";
 import Posts from "./pages/posts/Posts";
 import ProfileEmployee from "./pages/posts/profileEmployee";
