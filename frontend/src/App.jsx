@@ -16,7 +16,7 @@ import Form from "./pages/User/to job/form";
 import NotFound from "./notFound/NotFound";
 import AddPost from "./pages/posts/AddPost";
 import Posts from "./pages/posts/Posts";
-import ProfileEmployee from "./pages/posts/profileEmployee";
+import ProfileEmployee from "./pages/posts/ProfileEmployee";
 import { useEffect, useState } from "react";
 
 import NavAdmin from "./pages/Admin/Dashbord/NavAdmin";
