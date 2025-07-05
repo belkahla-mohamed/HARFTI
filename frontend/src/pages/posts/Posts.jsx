@@ -89,6 +89,10 @@ export default function Posts() {
 
     const handleLike = async (postID) => {
         try {
+            if(!userID){
+                toast.error("You must be logged in to like a post.");
+                return;
+            }
             const res = await axios.post(`https://harftibackend-production.up.railway.app/post/like/${postID}`, { userID });
             if (res.data.status === "success" && res.data.postLiked) {
                 socket.current.emit("likePost", res.data.postLiked);
@@ -101,6 +105,10 @@ export default function Posts() {
 
     const handleSave = async (postID) => {
         try {
+            if(!userID){
+                toast.error("You must be logged in to like a post.");
+                return;
+            }
             const res = await axios.post(`https://harftibackend-production.up.railway.app/post/save/${postID}`, { userID });
             if (res.data.status === "success" && res.data.postSaved) {
                 socket.current.emit("savePost", res.data.postSaved);
@@ -112,6 +120,10 @@ export default function Posts() {
     };
 
     const handleCommentSubmit = async (postID) => {
+        if(!userID){
+                toast.error("You must be logged in to like a post.");
+                return;
+            }
         if (!commentText[postID]) return; // Don't allow empty comments
 
         try {
