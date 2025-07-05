@@ -16,7 +16,7 @@ function CheckoutForm() {
 
         try {
             // Step 1: Request clientSecret from backend
-            const response = await fetch("http://localhost:3001/payment/create-payment-intent", {
+            const response = await fetch("https://harftibackend-production.up.railway.app/payment/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ amount: 10, currency: "usd" }), // Adjust amount

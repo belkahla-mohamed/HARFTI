@@ -11,7 +11,7 @@ export default function DashEmployee() {
 
     useEffect(() => {
         axios
-            .post("http://127.0.0.1:3001/user/dashUser")
+            .post("https://harftibackend-production.up.railway.app/user/dashUser")
             .then((res) => {
                 if (res.data.status === "success") {
                     setUsers(res.data.users.filter((e) =>
@@ -27,7 +27,7 @@ export default function DashEmployee() {
 
     function Supprimer(username) {
 
-        axios.post(`http://127.0.0.1:3001/user/dashUser/supp`, { username })
+        axios.post(`https://harftibackend-production.up.railway.app/user/dashUser/supp`, { username })
             .then((res) => {
                 if (res.data.status === "success") {
                     console.log('User deleted successfully');

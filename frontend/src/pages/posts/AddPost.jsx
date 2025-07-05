@@ -31,7 +31,7 @@ export default function AddPost() {
         if (userId) {
             formData.append('userID', userId);
             try {
-                await axios.post('http://127.0.0.1:3001/post/PostEmployee', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                await axios.post('https://harftibackend-production.up.railway.app/post/PostEmployee', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
                     .then((res) => {
                         if (res.data.status === "success") {
                             toast.success(res.data.message);

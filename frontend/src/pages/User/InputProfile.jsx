@@ -41,10 +41,10 @@ export default function InputProfile({ setYupError, selectedServices, setSelecte
 
     const folder = user && user.photo.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
     const imageSource = avatar
-        ? `http://localhost:3001/uploads/${avatar}`
+        ? `https://harftibackend-production.up.railway.app/uploads/${avatar}`
         : photo
-        ? "http://localhost:3001/uploads/default.png"
-        : user?.photo && `http://localhost:3001/${folder}/${user.photo}`;
+        ? "https://harftibackend-production.up.railway.app/uploads/default.png"
+        : user?.photo && `https://harftibackend-production.up.railway.app/${folder}/${user.photo}`;
 
     return (
         <div className="w-full flex justify-center flex-col items-center gap-y-8">

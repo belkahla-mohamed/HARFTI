@@ -114,7 +114,7 @@ export default function Register() {
             }            
             
 
-            const res = await axios.post('http://localhost:3001/auth/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            const res = await axios.post('https://harftibackend-production.up.railway.app/auth/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
             if (res.data.status === "success") {
                 setSuccess(res.data.message);
@@ -160,7 +160,7 @@ export default function Register() {
             // Validate the auth data against the schema
             await loginSchema.validate(auth, { abortEarly: false });
 
-            const res = await axios.post('http://localhost:3001/auth/login', auth);
+            const res = await axios.post('https://harftibackend-production.up.railway.app/auth/login', auth);
 
             if (res.data.status === "success") {
                 setSuccess(res.data.message);

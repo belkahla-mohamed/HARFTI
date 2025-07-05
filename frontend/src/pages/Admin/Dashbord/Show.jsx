@@ -13,7 +13,7 @@ export default function Show() {
   useEffect(() => {
     setLoading(true)
     axios
-      .post(`http://127.0.0.1:3001/user/dashUser/show`, { id })
+      .post(`https://harftibackend-production.up.railway.app/user/dashUser/show`, { id })
       .then((res) => {
         if (res.data.status === "success") {
           setUser(res.data.user)
@@ -107,7 +107,7 @@ export default function Show() {
             <div className="flex items-center space-x-4 mb-6">
               <div className="relative h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
                 <img
-                  src={`http://localhost:3001/EmployeePhotos/${user.photo}`}
+                  src={`https://harftibackend-production.up.railway.app/EmployeePhotos/${user.photo}`}
                   alt={user.fullname}
                   className="h-full w-full object-cover"
                   onError={(e) => {

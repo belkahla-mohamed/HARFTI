@@ -14,7 +14,7 @@ export default function ImageSlider({ images }) {
   const userID = JSON.parse(sessionStorage.getItem('userID'));
   useEffect(() => {
     if (userID) {
-      axios.post('http://127.0.0.1:3001/user/Profile', { userID })
+      axios.post('https://harftibackend-production.up.railway.app/user/Profile', { userID })
         .then((res) => {
           if (res.data.status === "success") {
             setUser(res.data.user)

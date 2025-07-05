@@ -19,7 +19,7 @@ export default function Services() {
 
     useEffect(() => {
         window.scrollTo({ top: 0 })
-        axios.get('http://localhost:3001/services')
+        axios.get('https://harftibackend-production.up.railway.app/services')
             .then((res) => {
                 if (res.data.status === "success") {
                     setServices(res.data.services);

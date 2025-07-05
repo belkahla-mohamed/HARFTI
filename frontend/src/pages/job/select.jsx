@@ -17,7 +17,7 @@ const Combobox = ({ setServicesTitle }) => {
   // Fetch services from API
   useEffect(() => {
     axios
-      .get("http://localhost:3001/services")
+      .get("https://harftibackend-production.up.railway.app/services")
       .then((res) => {
         if (res.data.status === "success") {
           setServices(res.data.services);

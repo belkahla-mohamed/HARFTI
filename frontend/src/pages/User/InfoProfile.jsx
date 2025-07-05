@@ -18,7 +18,7 @@ export default function InfoProfile({ user, photo, avatar }) {
     useEffect(() => {
         if (!user || !user.service || !Array.isArray(user.service)) return;
 
-        axios.get('http://localhost:3001/services')
+        axios.get('https://harftibackend-production.up.railway.app/services')
             .then((res) => {
                 if (res.data.status === "success" && Array.isArray(res.data.services)) {
                     // Find services that match user's services (since user.service is an array)
@@ -32,12 +32,12 @@ export default function InfoProfile({ user, photo, avatar }) {
     const folder = user?.photo?.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
 
     const imageSource = avatar
-        ? `http://localhost:3001/uploads/${avatar}`
+        ? `https://harftibackend-production.up.railway.app/uploads/${avatar}`
         : photo
-            ? `http://localhost:3001/EmployeePhotos/${photo}`
+            ? `https://harftibackend-production.up.railway.app/EmployeePhotos/${photo}`
             : user && user.photo
-                ? `http://localhost:3001/${folder}/${user.photo}`
-                : 'http://localhost:3001/uploads/default.png';
+                ? `https://harftibackend-production.up.railway.app/${folder}/${user.photo}`
+                : 'https://harftibackend-production.up.railway.app/uploads/default.png';
 
     return (
         <div className="flex flex-col h-auto w-full items-center gap-y-4">

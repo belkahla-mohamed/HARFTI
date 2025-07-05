@@ -40,8 +40,8 @@ export default function EmployeesService() {
     useEffect(() => {
 
         window.scrollTo({ top: 0 })
-        axios.get("http://127.0.0.1:3001/services/employees");
-        axios.post("http://127.0.0.1:3001/services/employees", { service })
+        axios.get("https://harftibackend-production.up.railway.app/services/employees");
+        axios.post("https://harftibackend-production.up.railway.app/services/employees", { service })
             .then((res) => {
                 if (res.data.status === 'success') {
                     setEmployees(res.data.employees);
@@ -95,8 +95,8 @@ export default function EmployeesService() {
                     const folder = employee?.photo?.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
 
                     const imageSource = employee && employee.photo
-                        ? `http://localhost:3001/${folder}/${employee.photo}`
-                        : 'http://localhost:3001/uploads/default.png';
+                        ? `https://harftibackend-production.up.railway.app/${folder}/${employee.photo}`
+                        : 'https://harftibackend-production.up.railway.app/uploads/default.png';
                     return (
                         <motion.div
                             key={employee.id}

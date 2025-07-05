@@ -13,7 +13,7 @@ export default function Services({ workers }) {
   const [message, setMessage] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/services')
+    axios.get('https://harftibackend-production.up.railway.app/services')
       .then((res) => {
         if (res.data.status === "success") {
           setServices(res.data.services);
@@ -50,7 +50,7 @@ export default function Services({ workers }) {
             ref={(el) => (cardsRef.current[index] = el)}
             className="sm:w-[300px] 2xl:w-[400px] h-auto bg-gray-300 hover:bg-orange-400 transition-colors duration-300 cursor-pointer rounded-lg shadow-lg"
           >
-            <img src={`http://localhost:3001/servicesPhotos/${service.image}`} className="w-full h-[200px] object-top" />
+            <img src={`https://harftibackend-production.up.railway.app/servicesPhotos/${service.image}`} className="w-full h-[200px] object-top" />
             <div className="text-center p-4">
               <h1 className="font-bold text-xl">{service.title}</h1>
               <p className="text-sm text-gray-700">

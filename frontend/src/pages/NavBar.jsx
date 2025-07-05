@@ -24,7 +24,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (userID) {
-      axios.post('http://127.0.0.1:3001/user/Profile', { userID })
+      axios.post('https://harftibackend-production.up.railway.app/user/Profile', { userID })
         .then((res) => {
           if (res.data.status === "success") {
             setUser(res.data.user)
@@ -112,7 +112,7 @@ export default function Navbar() {
               <button onMouseEnter={() => setShow(true)} onClick={() => setShow(!show)} className="relative sm:block hidden">
 
                 {user && user.photo ? (
-                  <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className={`w-[50px] border ${location.pathname === "/Profile" ? "border-orange-500" : "border-white"} border-2 rounded-[50%] h-[50px]`} />
+                  <img src={`https://harftibackend-production.up.railway.app/${folder}/${user.photo}`} alt="User Profile" className={`w-[50px] border ${location.pathname === "/Profile" ? "border-orange-500" : "border-white"} border-2 rounded-[50%] h-[50px]`} />
                 ) : (
                   <CircleUserRound className={`w-[50px] h-[50px] ${location.pathname === "/Profile" ? "text-orange-500" : "text-white"}`} /> // Fallback icon
                 )}
@@ -235,7 +235,7 @@ export default function Navbar() {
               <li>
                 {user && user.photo ? (
                   <Link to="/Profile">
-                    <img src={`http://localhost:3001/${folder}/${user.photo}`} alt="User Profile" className={`w-9 h-9 border-2 rounded-[50%]  ${location.pathname === "/Profile" ? "border-white" : 'border-[#333333]'}`} />
+                    <img src={`https://harftibackend-production.up.railway.app/${folder}/${user.photo}`} alt="User Profile" className={`w-9 h-9 border-2 rounded-[50%]  ${location.pathname === "/Profile" ? "border-white" : 'border-[#333333]'}`} />
                   </Link>
                 ) : (
                   <Link to="/Profile">

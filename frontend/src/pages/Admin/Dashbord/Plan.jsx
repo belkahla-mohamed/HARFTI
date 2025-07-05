@@ -10,7 +10,7 @@ const PolarAreaChart = () => {
   const [message, setMessage] = useState('');
   const [services, setServices] = useState([]); 
   useEffect(() => {
-  axios.get('http://localhost:3001/services')
+  axios.get('https://harftibackend-production.up.railway.app/services')
     .then((res) => {
         if (res.data.status === "success") {
             setServices(res.data.services);

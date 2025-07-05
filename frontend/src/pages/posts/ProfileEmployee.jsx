@@ -34,7 +34,7 @@ export default function ProfileEmployee() {
         const fetchEmployee = async () => {
             if (username) {
                 try {
-                    const res = await axios.get(`http://127.0.0.1:3001/post/ProfileEmployee/${username}`);
+                    const res = await axios.get(`https://harftibackend-production.up.railway.app/post/ProfileEmployee/${username}`);
                     if (res.data.status === "success") {
                         setEmployee(res.data.employee);
                         setEmployeeServices(res.data.employee.service || []);
@@ -54,7 +54,7 @@ export default function ProfileEmployee() {
     useEffect(() => {
         if (!employee || !employeeServices?.length) return;
 
-        axios.get('http://localhost:3001/services')
+        axios.get('https://harftibackend-production.up.railway.app/services')
             .then((res) => {
                 if (res.data.status === "success" && Array.isArray(res.data.services)) {
                     setServices(res.data.services.filter(s => employeeServices.includes(s.title)));
@@ -69,8 +69,8 @@ export default function ProfileEmployee() {
     const folder = employee?.photo?.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
 
     const imageSource = employee?.photo
-        ? `http://localhost:3001/${folder}/${employee.photo}`
-        : 'http://localhost:3001/uploads/default.png';
+        ? `https://harftibackend-production.up.railway.app/${folder}/${employee.photo}`
+        : 'https://harftibackend-production.up.railway.app/uploads/default.png';
 
     return (
         <div className="w-full justify-center flex">

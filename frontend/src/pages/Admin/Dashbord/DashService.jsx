@@ -15,7 +15,7 @@ export default function DashService() {
   const formData = new FormData();
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:3001/services").then((res) => {
+    axios.get("https://harftibackend-production.up.railway.app/services").then((res) => {
       if (res.data.status === "success") {
         setServices(res.data.services);
       } else {
@@ -40,7 +40,7 @@ export default function DashService() {
           text: "Your file has been deleted.",
           icon: "success"
         });
-        axios.post('http://127.0.0.1:3001/servicesDelete', { id }).then((res) => {
+        axios.post('https://harftibackend-production.up.railway.app/servicesDelete', { id }).then((res) => {
           if (res.data.status === "success") {
             setMessage(res.data.message);
             setRefreshe(!refreshe);
@@ -60,7 +60,7 @@ export default function DashService() {
     for (const [key, value] of Object.entries(newService)) {
       formData.append(key, value);
     }
-    axios.post('http://127.0.0.1:3001/newservices', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
+    axios.post('https://harftibackend-production.up.railway.app/newservices', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
       if (res.data.status === "success") {
         setMessage(res.data.message);
         setRefreshe(!refreshe);
@@ -160,7 +160,7 @@ export default function DashService() {
                       <div className="relative h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
                         {e.image ? (
                           <img
-                            src={`http://localhost:3001/servicesPhotos/${e.image}`}
+                            src={`https://harftibackend-production.up.railway.app/servicesPhotos/${e.image}`}
                             alt={e.title}
                             className="w-full h-full object-cover"
                             onError={(e) => (e.target.style.display = "none")}

@@ -37,7 +37,7 @@ export default function Profile() {
             return;
         }
 
-        axios.post('http://127.0.0.1:3001/user/Profile', { userID })
+        axios.post('https://harftibackend-production.up.railway.app/user/Profile', { userID })
             .then((res) => {
                 if (res.data.status === "success") {
                     // Ensure `service` is properly parsed if it's stored as a stringified array
@@ -113,7 +113,7 @@ export default function Profile() {
 
             console.log("FormData being sent:", Object.fromEntries(formData));
 
-            axios.put("http://127.0.0.1:3001/user/Profile/Update", formData, {
+            axios.put("https://harftibackend-production.up.railway.app/user/Profile/Update", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             }).then((res) => {
                 if (res.data.status === "success") {

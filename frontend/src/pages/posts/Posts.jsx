@@ -24,7 +24,7 @@ export default function Posts() {
 
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:3001/user/users')
+        axios.get('https://harftibackend-production.up.railway.app/user/users')
             .then((res) => {
                 if (res.data.status === "success") {
                     setUsers(res.data.users)
@@ -35,7 +35,7 @@ export default function Posts() {
 
     useEffect(() => {
         // Fetch posts and employees
-        axios.get('http://127.0.0.1:3001/post/PostEmployee')
+        axios.get('https://harftibackend-production.up.railway.app/post/PostEmployee')
             .then((res) => {
                 if (res.data.status === "success") {
                     const postsWithLikes = res.data.posts.map(post => ({
@@ -60,7 +60,7 @@ export default function Posts() {
             .catch((error) => console.error("Error fetching posts:", error));
 
         // Socket.IO setup
-        socket.current = io("http://127.0.0.1:3001");
+        socket.current = io("https://harftibackend-production.up.railway.app");
 
         socket.current.on("newPost", (newPost) => {
             setPosts((prevPosts) => [{ ...newPost, likes: newPost.likes || [] }, ...prevPosts]);
@@ -89,7 +89,7 @@ export default function Posts() {
 
     const handleLike = async (postID) => {
         try {
-            const res = await axios.post(`http://127.0.0.1:3001/post/like/${postID}`, { userID });
+            const res = await axios.post(`https://harftibackend-production.up.railway.app/post/like/${postID}`, { userID });
             if (res.data.status === "success" && res.data.postLiked) {
                 socket.current.emit("likePost", res.data.postLiked);
                 setRender(!render); // Trigger re-render
@@ -101,7 +101,7 @@ export default function Posts() {
 
     const handleSave = async (postID) => {
         try {
-            const res = await axios.post(`http://127.0.0.1:3001/post/save/${postID}`, { userID });
+            const res = await axios.post(`https://harftibackend-production.up.railway.app/post/save/${postID}`, { userID });
             if (res.data.status === "success" && res.data.postSaved) {
                 socket.current.emit("savePost", res.data.postSaved);
                 setRender(!render); // Trigger re-render
@@ -115,7 +115,7 @@ export default function Posts() {
         if (!commentText[postID]) return; // Don't allow empty comments
 
         try {
-            const res = await axios.post(`http://127.0.0.1:3001/post/comment/${postID}`, {
+            const res = await axios.post(`https://harftibackend-production.up.railway.app/post/comment/${postID}`, {
                 userID,
                 text: commentText[postID]
             });
@@ -138,7 +138,7 @@ export default function Posts() {
     }, []);
 
     async function handleDeletePost(postID) {
-        const res = await axios.delete(`http://127.0.0.1:3001/post/delete/${postID}`)
+        const res = await axios.delete(`https://harftibackend-production.up.railway.app/post/delete/${postID}`)
         if (res.data.status === "success") {
             toast.success(res.data.message);
             setRender(!render); // Trigger re-render
@@ -208,8 +208,8 @@ export default function Posts() {
                         function handleImage(user) {
                             const folder = user?.photo?.startsWith('avatar') ? 'uploads' : 'EmployeePhotos';
                             const imageSource = user?.photo
-                                ? `http://localhost:3001/${folder}/${user.photo}`
-                                : 'http://localhost:3001/uploads/default.png';
+                                ? `https://harftibackend-production.up.railway.app/${folder}/${user.photo}`
+                                : 'https://harftibackend-production.up.railway.app/uploads/default.png';
                             return (imageSource)
                         }
 
@@ -270,7 +270,7 @@ export default function Posts() {
 
                                 <div className="relative group">
                                     <video className="w-full sm:h-[600px] h-[400px]" controls>
-                                        <source src={`http://127.0.0.1:3001/PostPhoto/${post.photo}`} type="video/mp4" />
+                                        <source src={`https://harftibackend-production.up.railway.app/Videos/${post.photo}`} type="video/mp4" />
                                     </video>
                                 </div>
                                 <div className="flex justify-between items-center gap-x-4 sm:gap-x-0 px-6 py-3 bg-gray-200">

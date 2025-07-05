@@ -36,7 +36,7 @@ export default function Worker() {
 
     useEffect(() => {
         window.scrollTo({ top: 0 });
-        axios.get("http://127.0.0.1:3001/services/employees")
+        axios.get("https://harftibackend-production.up.railway.app/services/employees")
             .then((res) => {
                 if (res.data.status === "success") {
                     setWorkers(res.data.workers);
@@ -98,8 +98,8 @@ export default function Worker() {
 
                         // Construct image source path
                         const imageSource = worker.photo
-                            ? `http://localhost:3001/${folder}/${worker.photo}`
-                            : "http://localhost:3001/uploads/default.png"; // Default image
+                            ? `https://harftibackend-production.up.railway.app/${folder}/${worker.photo}`
+                            : "https://harftibackend-production.up.railway.app/uploads/default.png"; // Default image
 
                         return (
                             <motion.div

@@ -46,7 +46,7 @@ export default function Form({ selectedServices, setSelectedServices, setUser, u
     const [touched, setTouched] = useState({}); // Track touched fields
 
     useEffect(() => {
-        axios.get("http://localhost:3001/services")
+        axios.get("https://harftibackend-production.up.railway.app/services")
             .then((res) => {
                 if (res.data.status === "success") {
                     setServices(res.data.services.map(service => ({

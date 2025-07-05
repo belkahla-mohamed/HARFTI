@@ -52,7 +52,7 @@ export default function Formulaire() {
         formData.append('location', JSON.stringify(location));
 
         // Send form data to backend using Axios
-        axios.post('http://localhost:3001/reservations/reserver', formData, {
+        axios.post('https://harftibackend-production.up.railway.app/reservations/reserver', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {

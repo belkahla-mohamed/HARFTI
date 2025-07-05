@@ -8,7 +8,7 @@ const SelectCombobox = ({ selectedServices, setSelectedServices, user }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/services")
+      .get("https://harftibackend-production.up.railway.app/services")
       .then((res) => {
         if (res.data.status === "success") {
           const formattedOptions = res.data.services.map((service) => ({
